@@ -7,13 +7,16 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class NewBankClientHandler extends Thread{
-	
+
+	//added a socket s to send out requests for more data to customers
 	private NewBank bank;
 	private BufferedReader in;
 	private PrintWriter out;
-	
-	
+	private Socket s;
+
+
 	public NewBankClientHandler(Socket s) throws IOException {
+		this.s = s;
 		bank = NewBank.getBank();
 		in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		out = new PrintWriter(s.getOutputStream(), true);
@@ -37,8 +40,10 @@ public class NewBankClientHandler extends Thread{
 				while(true) {
 					String request = in.readLine();
 					System.out.println("Request from " + customer.getKey());
-					String responce = bank.processRequest(customer, request);
+					String responce = bank.processRequest(customer, request, s);
 					out.println(responce);
+					//added this so exiting doesn't look as though nothing is happening
+					out.println("What do you want to do?");
 				}
 			}
 			else {

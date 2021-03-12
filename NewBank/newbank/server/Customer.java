@@ -21,4 +21,8 @@ public class Customer {
 	public void addAccount(Account account) {
 		accounts.add(account);		
 	}
+
+	public ArrayList getAccounts(){
+		return accounts;
+	}
 }

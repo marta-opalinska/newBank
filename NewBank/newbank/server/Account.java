@@ -14,4 +14,20 @@ public class Account {
 		return (accountName + ": " + openingBalance);
 	}
 
+	public String getAccountName(){
+		return accountName;
+	}
+
+	public boolean canWithdraw(double withdrawal){
+		if(openingBalance-withdrawal<0){
+			return false;
+		}
+		return true;
+	}
+
+	//method always forces through a withdrawal, even if amount becomes negative, so best to guard any implementation with canwithdraw==true
+	public void withdraw(double withdrawal){
+		openingBalance = openingBalance - withdrawal;
+		return;
+	}
 }
