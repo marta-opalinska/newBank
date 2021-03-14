@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2631aff2-bd5f-4331-a9fd-91fc4e95a347" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/newBank.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/NewBankClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/NewBankClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/NewBankServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/NewBankServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,10 +117,10 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/newBank$ExampleClient.ic" NAME="ExampleClient Coverage Results" MODIFIED="1615498840403" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/newBank$ExampleClient.ic" NAME="ExampleClient Coverage Results" MODIFIED="1615696875385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>newbank.client.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/newBank$NewBankServer.ic" NAME="NewBankServer Coverage Results" MODIFIED="1615316927710" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/newBank$NewBankServer.ic" NAME="NewBankServer Coverage Results" MODIFIED="1615696857687" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>newbank.client.*</FILTER>
     </SUITE>
   </component>

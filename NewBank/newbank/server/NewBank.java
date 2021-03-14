@@ -65,6 +65,8 @@ public class NewBank {
 	public String paymentSend(CustomerID customer) throws IOException {
 		newbank.server.Account from;
 		double amount = 0;
+		newbank.server.Account to = null;
+		boolean isPayeeInNewbank = false;
 		//update when clarity about who/how to send money is clear
 		String payee = null;
 		ArrayList<newbank.server.Account> accountsAvailable = customers.get(customer.getKey()).getAccounts();
@@ -88,13 +90,38 @@ public class NewBank {
 			printToUser("Account not found; try again\n(To return to main, type EXIT)");
 		}
 		payeeChoosingLoop:while(true) {
-			printToUser("Type Payee:");
-			payee = userInput();
-			if(payee.equalsIgnoreCase("EXIT")){
-				return "exited";
-			} else {
-				break payeeChoosingLoop;
+			printToUser("Is user a NewBank Customer?(Y/N)");
+			String getIsNewbankCustomer = userInput();
+			while(true){
+				if(getIsNewbankCustomer.equals("N")){
+					isPayeeInNewbank = false;
+					printToUser("Type Payee:");
+					payee = userInput();
+					if(payee.equalsIgnoreCase("EXIT")){
+						return "exited";
+					} else {
+						break payeeChoosingLoop;
+					}
+				} else if(getIsNewbankCustomer.equals("Y")){
+					isPayeeInNewbank = true;
+					printToUser("Type Name of Payee");
+					payee = userInput();
+					for(String c:customers.keySet()){
+						if(payee.equalsIgnoreCase(c)){
+							payee = c;
+							ArrayList<Account> payeeAccounts = customers.get(c).getAccounts();
+							for(newbank.server.Account a: payeeAccounts){
+								to = a;
+								break payeeChoosingLoop;
+							}
+						}
+					}
+					printToUser("Not a newBank user");
+				} else {
+					printToUser("Please type Y or N");
+				}
 			}
+
 		}
 		amountChoosingLoop: while(true){
 			printToUser("Amount:");
@@ -127,6 +154,11 @@ public class NewBank {
 			} else {
 				printToUser("type EXIT to cancel or Y to confirm the payment");
 			}
+		}
+		if(isPayeeInNewbank = true){
+			System.out.println(payee);
+			to.deposit(amount);
+			System.out.println(to);
 		}
 		//prints server side information about the transfer
 		System.out.println("|NEWTRANSFER:"+"|FROM:"+customer.getKey()+"|"+from.getAccountName()+"| TO:"+payee+"| AMOUNT:"+amount+"|");

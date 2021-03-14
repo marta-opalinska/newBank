@@ -30,4 +30,9 @@ public class Account {
 		openingBalance = openingBalance - withdrawal;
 		return;
 	}
+
+	public void deposit(double deposit){
+		openingBalance = openingBalance + deposit;
+		return;
+	}
 }
