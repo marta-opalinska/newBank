@@ -28,6 +28,7 @@ public class NewBank {
 		
 		Customer john = new Customer();
 		john.addAccount(new Account("Checking", 250.0));
+		john.addAccount(new Account("Main", 1000));
 		customers.put("John", john);
 	}
 	
@@ -50,6 +51,7 @@ public class NewBank {
 			switch(request) {
 			case "SHOWMYACCOUNTS" : return showMyAccounts(customer);
 			case "PAY" : return paymentSend(customer);
+				case "MOVE" : return moveAccounts(customer);
 			default : return "FAIL";
 			}
 		}
@@ -58,6 +60,66 @@ public class NewBank {
 	
 	private String showMyAccounts(CustomerID customer) {
 		return (customers.get(customer.getKey())).accountsToString();
+	}
+
+	//add defensiveness(quit on EXIT)
+	public String moveAccounts(CustomerID customer) throws IOException {
+		newbank.server.Account from;
+		newbank.server.Account to;
+		double amount = 0;
+		ArrayList<Account> customerAccounts = customers.get(customer.getKey()).getAccounts();
+		printToUser("Select Account to transfer from:");
+		for(Account a: customerAccounts){
+			printToUser(a.toString());
+		}
+		fromLoop: while(true) {
+			String fromString = userInput();
+			for(Account a: customerAccounts){
+				if(fromString.equals(a.getAccountName())){
+					from = a;
+					printToUser("Account Selected: " + a.toString());
+					break fromLoop;
+				}
+				;
+			}
+			printToUser("No Account selected");
+		}
+		printToUser("Select Account to transfer to:");
+		for(Account a: customerAccounts){
+			printToUser(a.toString());
+		}
+		toLoop: while(true) {
+			String toString = userInput();
+			for(Account a: customerAccounts){
+				if(toString.equals(a.getAccountName())){
+					to = a;
+					printToUser("Account Selected: " + a.toString());
+					break toLoop;
+				}
+				;
+			}
+			printToUser("No Account selected");
+		}
+		printToUser("Select Amount:");
+		amountLoop: while(true){
+			String amountString = userInput();
+			try{
+				amount = Double.parseDouble(amountString);
+				break amountLoop;
+			} catch (NumberFormatException e){
+				printToUser("Invalid amount");
+			}
+		}
+		if(from.canWithdraw(amount)){
+			from.withdraw(amount);
+			to.deposit(amount);
+			printToUser("Updated accounts:");
+			printToUser(from.toString());
+			printToUser(to.toString());
+			return "SUCCESS";
+		} else {
+			return "FAIL: Insufficient Funds in origin account";
+		}
 	}
 
 	//pay feature implementation: added a getAccounts(which returns an arraylist) function to Customer class
@@ -90,6 +152,7 @@ public class NewBank {
 			printToUser("Account not found; try again\n(To return to main, type EXIT)");
 		}
 		payeeChoosingLoop:while(true) {
+			//need to add defenses against choosing wrong payee(could end in loop)
 			printToUser("Is user a NewBank Customer?(Y/N)");
 			String getIsNewbankCustomer = userInput();
 			while(true){
