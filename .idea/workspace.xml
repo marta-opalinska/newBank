@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2631aff2-bd5f-4331-a9fd-91fc4e95a347" name="Default Changelist" comment="">
+    <list default="true" id="2631aff2-bd5f-4331-a9fd-91fc4e95a347" name="Default Changelist" comment="added move method&#10;//need defensive coding">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" afterDir="false" />
     </list>
@@ -20,6 +20,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
   </component>
   <component name="ProjectId" id="1pSMXxTZdQwj5VWmHDeYM2QEdmN" />
   <component name="ProjectViewState">
@@ -82,6 +85,14 @@
       <option name="presentableId" value="Default" />
       <updated>1615172081722</updated>
     </task>
+    <task id="LOCAL-00001" summary="added move method&#10;//need defensive coding">
+      <created>1615700078008</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1615700078008</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -95,6 +106,10 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added move method&#10;//need defensive coding" />
+    <option name="LAST_COMMIT_MESSAGE" value="added move method&#10;//need defensive coding" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -116,10 +131,10 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/newBank$ExampleClient.ic" NAME="ExampleClient Coverage Results" MODIFIED="1615699925139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/newBank$ExampleClient.ic" NAME="ExampleClient Coverage Results" MODIFIED="1615701230890" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>newbank.client.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/newBank$NewBankServer.ic" NAME="NewBankServer Coverage Results" MODIFIED="1615699915759" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/newBank$NewBankServer.ic" NAME="NewBankServer Coverage Results" MODIFIED="1615701226751" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>newbank.client.*</FILTER>
     </SUITE>
   </component>

@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class NewBank {
 	
 	private static final NewBank bank = new NewBank();
-	private HashMap<String,Customer> customers;
+	private final HashMap<String,Customer> customers;
 	private Socket socket;
 	
 	private NewBank() {
@@ -64,6 +64,7 @@ public class NewBank {
 
 	//add defensiveness(quit on EXIT)
 	public String moveAccounts(CustomerID customer) throws IOException {
+		try{
 		newbank.server.Account from;
 		newbank.server.Account to;
 		double amount = 0;
@@ -80,7 +81,6 @@ public class NewBank {
 					printToUser("Account Selected: " + a.toString());
 					break fromLoop;
 				}
-				;
 			}
 			printToUser("No Account selected");
 		}
@@ -96,7 +96,6 @@ public class NewBank {
 					printToUser("Account Selected: " + a.toString());
 					break toLoop;
 				}
-				;
 			}
 			printToUser("No Account selected");
 		}
@@ -119,114 +118,111 @@ public class NewBank {
 			return "SUCCESS";
 		} else {
 			return "FAIL: Insufficient Funds in origin account";
+		} } catch (RuntimeException e){
+			return "exited";
 		}
 	}
 
 	//pay feature implementation: added a getAccounts(which returns an arraylist) function to Customer class
 	//maybe best to build entirely separate class for move/payment transactions?
 	public String paymentSend(CustomerID customer) throws IOException {
-		newbank.server.Account from;
-		double amount = 0;
-		newbank.server.Account to = null;
-		boolean isPayeeInNewbank = false;
-		//update when clarity about who/how to send money is clear
-		String payee = null;
-		ArrayList<newbank.server.Account> accountsAvailable = customers.get(customer.getKey()).getAccounts();
-		printToUser("Select payment account:");
-		for(newbank.server.Account a: accountsAvailable){
-			printToUser(a.toString());
-		}
-		printToUser("Choose account by typing account name");
-		accountChoosingLoop: while(true){
-			String typed = userInput();
-			if(typed.equalsIgnoreCase("EXIT")) {
-				return "exited";
+		try {
+			newbank.server.Account from;
+			double amount = 0;
+			newbank.server.Account to = null;
+			boolean isPayeeInNewbank = false;
+			//update when clarity about who/how to send money is clear
+			String payee = null;
+			ArrayList<newbank.server.Account> accountsAvailable = customers.get(customer.getKey()).getAccounts();
+			printToUser("Select payment account:");
+			for (newbank.server.Account a : accountsAvailable) {
+				printToUser(a.toString());
 			}
-			for(newbank.server.Account a: accountsAvailable){
-				if(typed.equalsIgnoreCase(a.getAccountName())){
-					from = a;
-					printToUser("ACCOUNT CHOSEN: "+a.getAccountName());
-					break accountChoosingLoop;
-				}
-			}
-			printToUser("Account not found; try again\n(To return to main, type EXIT)");
-		}
-		payeeChoosingLoop:while(true) {
-			//need to add defenses against choosing wrong payee(could end in loop)
-			printToUser("Is user a NewBank Customer?(Y/N)");
-			String getIsNewbankCustomer = userInput();
-			while(true){
-				if(getIsNewbankCustomer.equals("N")){
-					isPayeeInNewbank = false;
-					printToUser("Type Payee:");
-					payee = userInput();
-					if(payee.equalsIgnoreCase("EXIT")){
-						return "exited";
-					} else {
-						break payeeChoosingLoop;
+			printToUser("Choose account by typing account name");
+			accountChoosingLoop:
+			while (true) {
+				String typed = userInput();
+				for (newbank.server.Account a : accountsAvailable) {
+					if (typed.equalsIgnoreCase(a.getAccountName())) {
+						from = a;
+						printToUser("ACCOUNT CHOSEN: " + a.getAccountName());
+						break accountChoosingLoop;
 					}
-				} else if(getIsNewbankCustomer.equals("Y")){
-					isPayeeInNewbank = true;
-					printToUser("Type Name of Payee");
-					payee = userInput();
-					for(String c:customers.keySet()){
-						if(payee.equalsIgnoreCase(c)){
-							payee = c;
-							ArrayList<Account> payeeAccounts = customers.get(c).getAccounts();
-							for(newbank.server.Account a: payeeAccounts){
-								to = a;
-								break payeeChoosingLoop;
+				}
+				printToUser("Account not found; try again\n(To return to main, type EXIT)");
+			}
+			payeeChoosingLoop:
+			while (true) {
+				//need to add defenses against choosing wrong payee(could end in loop)
+				printToUser("Is user a NewBank Customer?(Y/N)");
+				String getIsNewbankCustomer = userInput();
+				while (true) {
+					if (getIsNewbankCustomer.equals("N")) {
+						isPayeeInNewbank = false;
+						printToUser("Type Payee:");
+						payee = userInput();
+							break payeeChoosingLoop;
+					} else if (getIsNewbankCustomer.equals("Y")) {
+						isPayeeInNewbank = true;
+						printToUser("Type Name of Payee");
+						payee = userInput();
+						for (String c : customers.keySet()) {
+							if (payee.equalsIgnoreCase(c)) {
+								payee = c;
+								ArrayList<Account> payeeAccounts = customers.get(c).getAccounts();
+								for (newbank.server.Account a : payeeAccounts) {
+									to = a;
+									break payeeChoosingLoop;
+								}
 							}
 						}
+						printToUser("Not a newBank user");
+					} else {
+						printToUser("Please type Y or N");
 					}
-					printToUser("Not a newBank user");
+				}
+
+			}
+			amountChoosingLoop:
+			while (true) {
+				printToUser("Amount:");
+				String typed = userInput();
+				try {
+					amount = Double.parseDouble(typed);
+				} catch (Exception e) {
+					printToUser("Not a number");
+					continue;
+				}
+				if (from.canWithdraw(amount)) {
+					break amountChoosingLoop;
 				} else {
-					printToUser("Please type Y or N");
+					printToUser("Insufficient Funds");
 				}
 			}
-
-		}
-		amountChoosingLoop: while(true){
-			printToUser("Amount:");
-			String typed = userInput();
-			if(typed.equalsIgnoreCase("EXIT")){
-				return "exited";
+			printToUser("To Confirm:");
+			printToUser("Money Transfer from: \n" + from.getAccountName() + "\nTo:" + payee);
+			printToUser("\nTo Confirm Payment type Y:");
+			while (true) {
+				String typed = userInput();
+				if (typed.equalsIgnoreCase("y")) {
+					from.withdraw(amount);
+					break;
+				} else  {
+					printToUser("type EXIT to cancel or Y to confirm the payment");
+				}
 			}
-			try {
-				amount = Double.parseDouble(typed);
-			} catch (Exception e){
-				printToUser("Not a number");
-				continue;
+			if (isPayeeInNewbank = true) {
+				System.out.println(payee);
+				to.deposit(amount);
+				System.out.println(to);
 			}
-			if(from.canWithdraw(amount)){
-				break amountChoosingLoop;
-			} else {
-				printToUser("Insufficient Funds");
-			}
+			//prints server side information about the transfer
+			System.out.println("|NEWTRANSFER:" + "|FROM:" + customer.getKey() + "|" + from.getAccountName() + "| TO:" + payee + "| AMOUNT:" + amount + "|");
+			printToUser("Account Updated:" + from);
+			return "SUCCESS";
+		} catch (RuntimeException e) {
+			return "exited";
 		}
-		printToUser("To Confirm:");
-		printToUser("Money Transfer from: \n" +from.getAccountName() + "\nTo:" + payee);
-		printToUser("\nTo Confirm Payment type Y:");
-		while(true){
-			String typed = userInput();
-			if(typed.equalsIgnoreCase("y")){
-				from.withdraw(amount);
-				break;
-			} else if(typed.equalsIgnoreCase("EXIT")){
-				return "exited";
-			} else {
-				printToUser("type EXIT to cancel or Y to confirm the payment");
-			}
-		}
-		if(isPayeeInNewbank = true){
-			System.out.println(payee);
-			to.deposit(amount);
-			System.out.println(to);
-		}
-		//prints server side information about the transfer
-		System.out.println("|NEWTRANSFER:"+"|FROM:"+customer.getKey()+"|"+from.getAccountName()+"| TO:"+payee+"| AMOUNT:"+amount+"|");
-		printToUser("Account Updated:" + from);
-		return "SUCCESS";
 	}
 
 	//function to send a String to the client
@@ -242,8 +238,14 @@ public class NewBank {
 	}
 
 	//function that takes what a user types in and returns it as a string
-	private String userInput() throws IOException {
+	private String userInput() throws RuntimeException, IOException {
 		DataInputStream inputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-		return inputStream.readLine();
+		String temp = inputStream.readLine();
+		if(temp.equals("EXIT")) {
+			throw new RuntimeException("Exited");
+		}
+		return temp;
 	}
+
+
 }
