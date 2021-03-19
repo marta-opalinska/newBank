@@ -41,8 +41,11 @@ public class NewBankClientHandler extends Thread {
         while (true) {
           String request = in.readLine();
           System.out.println("Request from " + customer.getKey());
-          String responce = bank.processRequest(customer, request, s);
-          out.println(responce);
+          HashMap<String, String> customerInput = CommandParser.parse(request);
+          Boolean isCommandDone = bank.processRequest(customer, customerInput, s);
+          if (!isCommandDone){
+            out.println(Constants.PRINT_RED + "The command was not successful. Please try again"+ Constants.RESET_COLOUR);
+          }
           //added this so exiting doesn't look as though nothing is happening
           out.println("What do you want to do?");
         }

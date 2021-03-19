@@ -20,7 +20,7 @@ public class CommandParser {
    * @param input command line input
    * @return map with in form: [arg: value]
    */
-  public static HashMap<String, String> parse(String input, PrintWriter out) {
+  public static HashMap<String, String> parse(String input) {
     HashMap<String, String> parsedCommand = new HashMap<>();
     // spliting command by blank space
     String[] splitCommand = input.split("\\s+");
