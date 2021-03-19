@@ -9,19 +9,31 @@ import java.util.Scanner;
 public class NewBank {
 	
 	private static final NewBank bank = new NewBank();
-	private final HashMap<String,Customer> customers;
+	private HashMap<String,Customer> customers;
 	private Socket socket;
 	
 	private NewBank() {
-		customers = new HashMap<>();
-		addTestData();
+		//customers = new HashMap<>();
+		//addTestData();
+		customers = getCustomerData();
 	}
-	
+
+	private HashMap<String,Customer> getCustomerData(){
+		databaseInterface database = new databaseInterface();
+		HashMap<String,Customer> customers1 = new HashMap<>();
+		try {
+			customers1 = databaseInterface.readFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	return customers1;
+	}
+
 	private void addTestData() {
 		Customer bhagy = new Customer();
 		bhagy.addAccount(new Account("Main", 1000.0));
 		customers.put("Bhagy", bhagy);
-		
+
 		Customer christina = new Customer();
 		christina.addAccount(new Account("Savings", 1500.0));
 		customers.put("Christina", christina);

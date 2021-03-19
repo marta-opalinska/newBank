@@ -3,7 +3,8 @@ package newbank.server;
 import java.util.ArrayList;
 
 public class Customer {
-	
+
+	private databaseInterface database;
 	private ArrayList<Account> accounts;
 	
 	public Customer() {

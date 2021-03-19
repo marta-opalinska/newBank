@@ -1,0 +1,8 @@
+<account>
+    <id>0</id>
+    <username>admin</username>
+    <password>admin</password>
+    <main>
+        <balance>0</balance>
+    </main>
+</account>
