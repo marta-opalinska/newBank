@@ -47,6 +47,10 @@ public class NewBank {
     //connects newbank to the socket so client can be communicated with in the bank interface
     this.socket = s;
     // running the command
+    if(request.isEmpty()){
+      printToUser(Constants.PRINT_RED+ "Not valid command format."+ Constants.RESET_COLOUR);
+      return false;
+    }
     String commandName = request.get("commandName").toLowerCase();
     switch (commandName) {
       case Constants.PAY_COMMAND:
