@@ -40,6 +40,9 @@ public class databaseInterface {
                 if (node.getNodeType() == Node.ELEMENT_NODE)
                 {
                     Element eElement = (Element) node;
+                    Customer cust = new Customer();
+                    cust.addAccount(new Account("Main", 1000.0));
+                    customers.put(eElement.getElementsByTagName("username").item(0).getTextContent(), cust);
                     System.out.println("Account id: "+ eElement.getElementsByTagName("id").item(0).getTextContent());
                     System.out.println("Name: "+ eElement.getElementsByTagName("username").item(0).getTextContent());
                     System.out.println("Password: "+ eElement.getElementsByTagName("password").item(0).getTextContent());

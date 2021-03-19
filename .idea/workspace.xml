@@ -26,14 +26,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2631aff2-bd5f-4331-a9fd-91fc4e95a347" name="Default Changelist" comment="added move method&#10;//need defensive coding">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewBank/newbank/server/database.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java" afterDir="false" />
+    <list default="true" id="2631aff2-bd5f-4331-a9fd-91fc4e95a347" name="Default Changelist" comment="Added database parser plus database and begun to implement funcitonality.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewBank/newbank/client/ExampleClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/client/ExampleClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/database.xml" beforeDir="false" afterPath="$PROJECT_DIR$/database.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +72,12 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="xslt.associations" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/NewBank/newbank" />
+    </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
@@ -140,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615700078008</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added database parser plus database and begun to implement funcitonality.">
+      <created>1616170351641</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1616170351641</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -180,41 +189,50 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added move method&#10;//need defensive coding" />
-    <option name="LAST_COMMIT_MESSAGE" value="added move method&#10;//need defensive coding" />
+    <MESSAGE value="Added database parser plus database and begun to implement funcitonality." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added database parser plus database and begun to implement funcitonality." />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1238" height="212" key="GridCell.Tab.0.bottom" timestamp="1616165740676">
+    <state x="128" y="90" key="DiffContextDialog" timestamp="1616170533788">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="212" key="GridCell.Tab.0.bottom/0.0.1280.749@0.0.1280.749" timestamp="1616165740676" />
-    <state width="1238" height="212" key="GridCell.Tab.0.center" timestamp="1616165740674">
+    <state x="128" y="90" key="DiffContextDialog/0.0.1280.749@0.0.1280.749" timestamp="1616170533788" />
+    <state width="1238" height="204" key="GridCell.Tab.0.bottom" timestamp="1616177393506">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="212" key="GridCell.Tab.0.center/0.0.1280.749@0.0.1280.749" timestamp="1616165740674" />
-    <state width="1238" height="212" key="GridCell.Tab.0.left" timestamp="1616165740672">
+    <state width="1238" height="204" key="GridCell.Tab.0.bottom/0.0.1280.749@0.0.1280.749" timestamp="1616177393506" />
+    <state width="1238" height="204" key="GridCell.Tab.0.center" timestamp="1616177393504">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="212" key="GridCell.Tab.0.left/0.0.1280.749@0.0.1280.749" timestamp="1616165740672" />
-    <state width="1238" height="212" key="GridCell.Tab.0.right" timestamp="1616165740675">
+    <state width="1238" height="204" key="GridCell.Tab.0.center/0.0.1280.749@0.0.1280.749" timestamp="1616177393504" />
+    <state width="1238" height="204" key="GridCell.Tab.0.left" timestamp="1616177393503">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="212" key="GridCell.Tab.0.right/0.0.1280.749@0.0.1280.749" timestamp="1616165740675" />
-    <state width="1238" height="264" key="GridCell.Tab.1.bottom" timestamp="1616164587389">
+    <state width="1238" height="204" key="GridCell.Tab.0.left/0.0.1280.749@0.0.1280.749" timestamp="1616177393503" />
+    <state width="1238" height="204" key="GridCell.Tab.0.right" timestamp="1616177393505">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="264" key="GridCell.Tab.1.bottom/0.0.1280.749@0.0.1280.749" timestamp="1616164587389" />
-    <state width="1238" height="264" key="GridCell.Tab.1.center" timestamp="1616164587385">
+    <state width="1238" height="204" key="GridCell.Tab.0.right/0.0.1280.749@0.0.1280.749" timestamp="1616177393505" />
+    <state width="1238" height="204" key="GridCell.Tab.1.bottom" timestamp="1616177379627">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="264" key="GridCell.Tab.1.center/0.0.1280.749@0.0.1280.749" timestamp="1616164587385" />
-    <state width="1238" height="264" key="GridCell.Tab.1.left" timestamp="1616164587383">
+    <state width="1238" height="204" key="GridCell.Tab.1.bottom/0.0.1280.749@0.0.1280.749" timestamp="1616177379627" />
+    <state width="1238" height="204" key="GridCell.Tab.1.center" timestamp="1616177379624">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="264" key="GridCell.Tab.1.left/0.0.1280.749@0.0.1280.749" timestamp="1616164587383" />
-    <state width="1238" height="264" key="GridCell.Tab.1.right" timestamp="1616164587387">
+    <state width="1238" height="204" key="GridCell.Tab.1.center/0.0.1280.749@0.0.1280.749" timestamp="1616177379624" />
+    <state width="1238" height="204" key="GridCell.Tab.1.left" timestamp="1616177379623">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="264" key="GridCell.Tab.1.right/0.0.1280.749@0.0.1280.749" timestamp="1616164587387" />
+    <state width="1238" height="204" key="GridCell.Tab.1.left/0.0.1280.749@0.0.1280.749" timestamp="1616177379623" />
+    <state width="1238" height="204" key="GridCell.Tab.1.right" timestamp="1616177379625">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state width="1238" height="204" key="GridCell.Tab.1.right/0.0.1280.749@0.0.1280.749" timestamp="1616177379625" />
+    <state x="80" y="140" width="1191" height="548" key="Vcs.Push.Dialog.v2" timestamp="1616170579408">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state x="80" y="140" width="1191" height="548" key="Vcs.Push.Dialog.v2/0.0.1280.749@0.0.1280.749" timestamp="1616170579408" />
     <state x="432" y="321" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1616154628960">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
@@ -247,14 +265,19 @@
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/NewBank/newbank/client/ExampleClient.java</url>
-          <line>27</line>
-          <option name="timeStamp" value="6" />
+          <url>file://$PROJECT_DIR$/NewBank/newbank/server/NewBank.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/NewBank/newbank/client/ExampleClient.java</url>
-          <line>46</line>
-          <option name="timeStamp" value="7" />
+          <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
+          <line>43</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
