@@ -1,0 +1,24 @@
+<accounts>
+    <account>
+        <id>0</id>
+        <username>admin</username>
+        <password>8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918</password>
+        <main>
+            <balance>0</balance>
+        </main>
+    </account>
+    <account>
+        <id>1</id>
+        <username>bob</username>
+        <password>7daa446b81408e830de5979c926b435e85bfbfb3281e1da42f31e8297d7448a5</password>
+        <main>
+            <balance>1000</balance>
+        </main>
+        <loan>
+            <value>100</value>
+            <length>70</length>
+            <loaneeID>0</loaneeID>
+            <paidBack>30</paidBack>
+        </loan>
+    </account>
+</accounts>

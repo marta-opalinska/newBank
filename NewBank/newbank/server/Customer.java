@@ -3,7 +3,8 @@ package newbank.server;
 import java.util.ArrayList;
 
 public class Customer {
-	
+
+	private databaseInterface database;
 	private ArrayList<Account> accounts;
 	
 	public Customer() {
@@ -17,6 +18,13 @@ public class Customer {
 		}
 		return s;
 	}
+	public double getBalance(String accountID){
+		return 0.0;
+	}
+	public void setBalance(double value){
+
+	}
+
 
 	public void addAccount(Account account) {
 		accounts.add(account);		

@@ -1,14 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/main" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="2631aff2-bd5f-4331-a9fd-91fc4e95a347" name="Default Changelist" comment="added move method&#10;//need defensive coding">
+    <list default="true" id="2631aff2-bd5f-4331-a9fd-91fc4e95a347" name="Default Changelist" comment="Customers fully initialised using database (added balance). Password checking also specific to user accounts.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -23,6 +56,7 @@
   </component>
   <component name="ProblemsViewState">
     <option name="selectedIndex" value="1" />
+    <option name="showPreview" value="true" />
   </component>
   <component name="ProjectId" id="1pSMXxTZdQwj5VWmHDeYM2QEdmN" />
   <component name="ProjectViewState">
@@ -32,11 +66,27 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="xslt.associations" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/NewBank/newbank" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="git pull origin PAY?MOVE" />
+      <command value="git pull origin PAY/MOVE" />
+      <command value="git push " />
+      <command value="git pull origin TP_Test1 " />
+      <command value="git pull origin Customer-DataBase" />
+    </option>
   </component>
   <component name="RunManager" selected="Application.ExampleClient">
     <configuration name="ExampleClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -92,15 +142,66 @@
       <option name="project" value="LOCAL" />
       <updated>1615700078008</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added database parser plus database and begun to implement funcitonality.">
+      <created>1616170351641</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1616170351641</updated>
+    </task>
+    <task id="LOCAL-00003" summary="You can now login using the database (XML) accounts. Add account not yet incorporated so must be done manually.">
+      <created>1616177567705</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1616177567705</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Password checking now works. Password is stored in XML as SHA256 hashed value so you must store it as this.">
+      <created>1616345197597</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1616345197597</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Customers fully initialised using database (added balance). Password checking also specific to user accounts.">
+      <created>1616348763307</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1616348763307</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="SHOW_OTHER_BRANCHES" value="true" />
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -109,15 +210,99 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added move method&#10;//need defensive coding" />
-    <option name="LAST_COMMIT_MESSAGE" value="added move method&#10;//need defensive coding" />
+    <MESSAGE value="Added database parser plus database and begun to implement funcitonality." />
+    <MESSAGE value="You can now login using the database (XML) accounts. Add account not yet incorporated so must be done manually." />
+    <MESSAGE value="Password checking now works. Password is stored in XML as SHA256 hashed value so you must store it as this." />
+    <MESSAGE value="Customers fully initialised using database (added balance). Password checking also specific to user accounts." />
+    <option name="LAST_COMMIT_MESSAGE" value="Customers fully initialised using database (added balance). Password checking also specific to user accounts." />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="128" y="90" key="DiffContextDialog" timestamp="1616170533788">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state x="128" y="90" key="DiffContextDialog/0.0.1280.749@0.0.1280.749" timestamp="1616170533788" />
+    <state width="1238" height="212" key="GridCell.Tab.0.bottom" timestamp="1616349747089">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state width="1238" height="212" key="GridCell.Tab.0.bottom/0.0.1280.749@0.0.1280.749" timestamp="1616349747089" />
+    <state width="1238" height="212" key="GridCell.Tab.0.center" timestamp="1616349747085">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state width="1238" height="212" key="GridCell.Tab.0.center/0.0.1280.749@0.0.1280.749" timestamp="1616349747085" />
+    <state width="1238" height="212" key="GridCell.Tab.0.left" timestamp="1616349747083">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state width="1238" height="212" key="GridCell.Tab.0.left/0.0.1280.749@0.0.1280.749" timestamp="1616349747083" />
+    <state width="1238" height="212" key="GridCell.Tab.0.right" timestamp="1616349747087">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state width="1238" height="212" key="GridCell.Tab.0.right/0.0.1280.749@0.0.1280.749" timestamp="1616349747087" />
+    <state width="1238" height="204" key="GridCell.Tab.1.bottom" timestamp="1616348802573">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state width="1238" height="204" key="GridCell.Tab.1.bottom/0.0.1280.749@0.0.1280.749" timestamp="1616348802573" />
+    <state width="1238" height="204" key="GridCell.Tab.1.center" timestamp="1616348802570">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state width="1238" height="204" key="GridCell.Tab.1.center/0.0.1280.749@0.0.1280.749" timestamp="1616348802570" />
+    <state width="1238" height="204" key="GridCell.Tab.1.left" timestamp="1616348802569">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state width="1238" height="204" key="GridCell.Tab.1.left/0.0.1280.749@0.0.1280.749" timestamp="1616348802569" />
+    <state width="1238" height="204" key="GridCell.Tab.1.right" timestamp="1616348802572">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state width="1238" height="204" key="GridCell.Tab.1.right/0.0.1280.749@0.0.1280.749" timestamp="1616348802572" />
+    <state x="80" y="140" width="1191" height="548" key="Vcs.Push.Dialog.v2" timestamp="1616348778941">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state x="80" y="140" width="1191" height="548" key="Vcs.Push.Dialog.v2/0.0.1280.749@0.0.1280.749" timestamp="1616348778941" />
+    <state x="432" y="321" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1616154628960">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state x="432" y="321" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.749@0.0.1280.749" timestamp="1616154628960" />
+    <state x="190" y="132" width="899" height="617" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1616161414654">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state x="190" y="132" width="899" height="617" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1280.749@0.0.1280.749" timestamp="1616161414654" />
+    <state x="305" y="167" width="670" height="675" key="run.anything.popup" timestamp="1616162054735">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state x="305" y="167" width="670" height="675" key="run.anything.popup/0.0.1280.749@0.0.1280.749" timestamp="1616162054735" />
+    <state x="305" y="167" width="670" height="675" key="run.anything.popup/0.23.1280.726@0.23.1280.726" timestamp="1615920300266" />
+    <state x="305" y="73" width="670" height="676" key="search.everywhere.popup" timestamp="1616183817252">
+      <screen x="0" y="0" width="1280" height="749" />
+    </state>
+    <state x="305" y="73" width="670" height="676" key="search.everywhere.popup/0.0.1280.749@0.0.1280.749" timestamp="1616183817252" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.net.SocketException" package="java.net" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
+          <line>97</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
+          <line>67</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/NewBank/newbank/server/NewBank.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

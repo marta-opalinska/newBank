@@ -5,16 +5,44 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.net.Socket;
 
+
 public class NewBank {
 
   private static final NewBank bank = new NewBank();
   private final HashMap<String, Customer> customers;
   private Socket socket;
-
   private NewBank() {
-    customers = new HashMap<>();
-    addTestData();
-  }
+        //customers = new HashMap<>();
+        //addTestData();
+        customers = getCustomerData();
+    }
+    public synchronized CustomerID checkLogInDetails(String userName, String password) {
+        String hashPword = "";
+        try {
+            hashPword = toHexString(getSHA(password));
+            System.out.println(toHexString(getSHA(password)));
+            if (customers.containsKey(userName)) {
+                if (databaseInterface.checkPassword(userName, hashPword)) {
+                    return new CustomerID(userName);
+                }
+            }
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
+
+        return null;
+    }
+    private HashMap<String, Customer> getCustomerData() {
+        databaseInterface database = new databaseInterface();
+        HashMap<String, Customer> customers1 = new HashMap<>();
+        try {
+            customers1 = databaseInterface.readFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return customers1;
+    }
+  
 
   private void addTestData() {
     Customer bhagy = new Customer();
@@ -259,6 +287,5 @@ public class NewBank {
     }
     return temp;
   }
-
 
 }
