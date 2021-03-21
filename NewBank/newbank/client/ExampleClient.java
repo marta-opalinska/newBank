@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+
 public class ExampleClient extends Thread{
 	
 	private Socket server;

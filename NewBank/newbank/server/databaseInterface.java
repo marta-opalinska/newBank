@@ -9,6 +9,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 
 public class databaseInterface {
@@ -101,8 +102,17 @@ public class databaseInterface {
         }
         return false;
     }
-    public void updateDatabase(){
-
+    public void updateDatabase(HashMap<String,Customer> customers){
+        NodeList nodeList = getRootNodeObj("account");
+        int itr = 0;
+        for(Customer customer:customers.values()){
+            Node node = nodeList.item(itr);
+            Element eElement = (Element) node;
+            for (Account acc : customer.getAccounts()){
+                eElement.getElementsByTagName("").item(0).setNodeValue(acc.getBalance().toString());
+            }
+            itr++;
+        }
     }
 
 }
