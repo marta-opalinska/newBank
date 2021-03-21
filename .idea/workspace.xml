@@ -28,8 +28,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2631aff2-bd5f-4331-a9fd-91fc4e95a347" name="Default Changelist" comment="Customers fully initialised using database (added balance). Password checking also specific to user accounts.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +85,9 @@
       <command value="git push " />
       <command value="git pull origin TP_Test1 " />
       <command value="git pull origin Customer-DataBase" />
+      <command value="git stash" />
+      <command value="git pull origin master" />
+      <command value="git pull origin main" />
     </option>
   </component>
   <component name="RunManager" selected="Application.ExampleClient">
@@ -221,22 +223,22 @@
       <screen x="0" y="0" width="1280" height="749" />
     </state>
     <state x="128" y="90" key="DiffContextDialog/0.0.1280.749@0.0.1280.749" timestamp="1616170533788" />
-    <state width="1238" height="212" key="GridCell.Tab.0.bottom" timestamp="1616349747089">
+    <state width="1238" height="212" key="GridCell.Tab.0.bottom" timestamp="1616353075391">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="212" key="GridCell.Tab.0.bottom/0.0.1280.749@0.0.1280.749" timestamp="1616349747089" />
-    <state width="1238" height="212" key="GridCell.Tab.0.center" timestamp="1616349747085">
+    <state width="1238" height="212" key="GridCell.Tab.0.bottom/0.0.1280.749@0.0.1280.749" timestamp="1616353075391" />
+    <state width="1238" height="212" key="GridCell.Tab.0.center" timestamp="1616353075386">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="212" key="GridCell.Tab.0.center/0.0.1280.749@0.0.1280.749" timestamp="1616349747085" />
-    <state width="1238" height="212" key="GridCell.Tab.0.left" timestamp="1616349747083">
+    <state width="1238" height="212" key="GridCell.Tab.0.center/0.0.1280.749@0.0.1280.749" timestamp="1616353075386" />
+    <state width="1238" height="212" key="GridCell.Tab.0.left" timestamp="1616353075383">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="212" key="GridCell.Tab.0.left/0.0.1280.749@0.0.1280.749" timestamp="1616349747083" />
-    <state width="1238" height="212" key="GridCell.Tab.0.right" timestamp="1616349747087">
+    <state width="1238" height="212" key="GridCell.Tab.0.left/0.0.1280.749@0.0.1280.749" timestamp="1616353075383" />
+    <state width="1238" height="212" key="GridCell.Tab.0.right" timestamp="1616353075388">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="212" key="GridCell.Tab.0.right/0.0.1280.749@0.0.1280.749" timestamp="1616349747087" />
+    <state width="1238" height="212" key="GridCell.Tab.0.right/0.0.1280.749@0.0.1280.749" timestamp="1616353075388" />
     <state width="1238" height="204" key="GridCell.Tab.1.bottom" timestamp="1616348802573">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
@@ -265,10 +267,10 @@
       <screen x="0" y="0" width="1280" height="749" />
     </state>
     <state x="190" y="132" width="899" height="617" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1280.749@0.0.1280.749" timestamp="1616161414654" />
-    <state x="305" y="167" width="670" height="675" key="run.anything.popup" timestamp="1616162054735">
+    <state x="305" y="167" width="670" height="675" key="run.anything.popup" timestamp="1616352753975">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state x="305" y="167" width="670" height="675" key="run.anything.popup/0.0.1280.749@0.0.1280.749" timestamp="1616162054735" />
+    <state x="305" y="167" width="670" height="675" key="run.anything.popup/0.0.1280.749@0.0.1280.749" timestamp="1616352753975" />
     <state x="305" y="167" width="670" height="675" key="run.anything.popup/0.23.1280.726@0.23.1280.726" timestamp="1615920300266" />
     <state x="305" y="73" width="670" height="676" key="search.everywhere.popup" timestamp="1616183817252">
       <screen x="0" y="0" width="1280" height="749" />
@@ -300,7 +302,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/NewBank/newbank/server/NewBank.java</url>
-          <line>36</line>
+          <line>22</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
