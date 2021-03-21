@@ -18,6 +18,13 @@ public class Customer {
 		}
 		return s;
 	}
+	public double getBalance(String accountID){
+		return 0.0;
+	}
+	public void setBalance(double value){
+
+	}
+
 
 	public void addAccount(Account account) {
 		accounts.add(account);		

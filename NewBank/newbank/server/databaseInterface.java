@@ -2,17 +2,12 @@ package newbank.server;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.FileOutputStream;
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
-import java.io.File;
 import java.util.HashMap;
 
 
@@ -50,7 +45,7 @@ public class databaseInterface {
                     Element eElement = (Element) node;
                     Customer cust = new Customer();
 
-                    cust.addAccount(new Account("main", getBalance(eElement.getElementsByTagName("id").item(0).getTextContent())));
+                    cust.addAccount(new Account("main", getBalance("main",eElement.getElementsByTagName("id").item(0).getTextContent())));
                     customers.put(eElement.getElementsByTagName("username").item(0).getTextContent(), cust);
                     //System.out.println("Account id: "+ eElement.getElementsByTagName("id").item(0).getTextContent());
                     //System.out.println("Name: "+ eElement.getElementsByTagName("username").item(0).getTextContent());
@@ -64,7 +59,7 @@ public class databaseInterface {
         }
         return customers;
     }
-    public static double getBalance(String accountID) {
+    public static double getBalance(String accountType,String accountID) {
         NodeList nodeList = getRootNodeObj("account");
         for (int itr = 0; itr < nodeList.getLength(); itr++) {
             Node node = nodeList.item(itr);
@@ -72,7 +67,7 @@ public class databaseInterface {
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) node;
                 if (eElement.getElementsByTagName("id").item(0).getTextContent().equals(accountID)) {
-                    Element cElement = (Element) eElement.getElementsByTagName("main").item(0);
+                    Element cElement = (Element) eElement.getElementsByTagName(accountType).item(0);
                     System.out.println("Account Balance : " + cElement.getElementsByTagName("balance").item(0).getTextContent());
                     String balance = cElement.getElementsByTagName("balance").item(0).getTextContent().toString();
                     try {
@@ -103,16 +98,8 @@ public class databaseInterface {
         }
         return false;
     }
-    public static void writeFile1() throws IOException {
-        File fout = new File("database.xml");
-        FileOutputStream fos = new FileOutputStream(fout);
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+    public void updateDatabase(){
 
-        for (int i = 0; i < 10; i++) {
-            bw.write("something");
-            bw.newLine();
-        }
-
-        bw.close();
     }
+
 }
