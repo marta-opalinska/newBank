@@ -17,12 +17,8 @@ import java.util.HashMap;
 
 
 public class databaseInterface {
-    public static HashMap<String,Customer> readFile() throws IOException{
-        //ArrayList<Customer> customers = new ArrayList<Customer>();
-        HashMap<String,Customer> customers = new HashMap<String, Customer>();
-        try
-        {
-            //creating a constructor of file class and parsing an XML file
+    public static NodeList getFileObj(){
+        try {
             File fIn = new File("database.xml");
             //an instance of factory that gives a document builder
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -32,7 +28,19 @@ public class databaseInterface {
             doc.getDocumentElement().normalize();
             System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
             NodeList nodeList = doc.getElementsByTagName("account");
-            // nodeList is not iterable, so we are using for loop
+            return nodeList;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public static HashMap<String,Customer> readFile() throws IOException{
+        //ArrayList<Customer> customers = new ArrayList<Customer>();
+        HashMap<String,Customer> customers = new HashMap<String, Customer>();
+        try
+        {
+            NodeList nodeList = getFileObj();
             for (int itr = 0; itr < nodeList.getLength(); itr++)
             {
                 Node node = nodeList.item(itr);
@@ -43,9 +51,9 @@ public class databaseInterface {
                     Customer cust = new Customer();
                     cust.addAccount(new Account("Main", 1000.0));
                     customers.put(eElement.getElementsByTagName("username").item(0).getTextContent(), cust);
-                    System.out.println("Account id: "+ eElement.getElementsByTagName("id").item(0).getTextContent());
-                    System.out.println("Name: "+ eElement.getElementsByTagName("username").item(0).getTextContent());
-                    System.out.println("Password: "+ eElement.getElementsByTagName("password").item(0).getTextContent());
+                    //System.out.println("Account id: "+ eElement.getElementsByTagName("id").item(0).getTextContent());
+                    //System.out.println("Name: "+ eElement.getElementsByTagName("username").item(0).getTextContent());
+                    //System.out.println("Password: "+ eElement.getElementsByTagName("password").item(0).getTextContent());
                 }
             }
         }
@@ -55,7 +63,28 @@ public class databaseInterface {
         }
         return customers;
     }
+    public static boolean checkPassword(String userName, String password){
+        NodeList nodeList = getFileObj();
+        System.out.println(nodeList.getLength());
+        for (int itr = 0; itr < nodeList.getLength(); itr++)
+        {
+            Node node = nodeList.item(itr);
+            if (node.getNodeType() == Node.ELEMENT_NODE)
+            {
+                Element eElement = (Element) node;
+                System.out.println("Account id: "+ eElement.getElementsByTagName("id").item(0).getTextContent());
+                System.out.println("Name: "+ eElement.getElementsByTagName("username").item(0).getTextContent());
+                System.out.println("Password: "+ eElement.getElementsByTagName("password").item(0).getTextContent());
 
+                System.out.println(eElement.getElementsByTagName("password").item(0).getTextContent());
+
+                if(eElement.getElementsByTagName("password").item(0).getTextContent().equals(password)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     public static void writeFile1() throws IOException {
         File fout = new File("database.xml");
         FileOutputStream fos = new FileOutputStream(fout);
