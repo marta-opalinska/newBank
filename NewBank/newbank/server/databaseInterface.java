@@ -44,8 +44,11 @@ public class databaseInterface {
                 {
                     Element eElement = (Element) node;
                     Customer cust = new Customer();
-
-                    cust.addAccount(new Account("main", getBalance("main",eElement.getElementsByTagName("id").item(0).getTextContent())));
+                    String accountsList = eElement.getElementsByTagName("accounts").item(0).getTextContent().toString();
+                    String[] accountArray = accountsList.split(",");
+                    for (String account : accountArray) {
+                        cust.addAccount(new Account(account, getBalance(account,eElement.getElementsByTagName("id").item(0).getTextContent())));
+                    }
                     customers.put(eElement.getElementsByTagName("username").item(0).getTextContent(), cust);
                     //System.out.println("Account id: "+ eElement.getElementsByTagName("id").item(0).getTextContent());
                     //System.out.println("Name: "+ eElement.getElementsByTagName("username").item(0).getTextContent());

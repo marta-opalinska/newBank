@@ -21,7 +21,7 @@ public class NewBank {
         customers = getCustomerData();
     }
     public synchronized CustomerID checkLogInDetails(String userName, String password) {
-        String hashPword = "";
+        String hashPword;
         try {
             hashPword = toHexString(getSHA(password));
             System.out.println(toHexString(getSHA(password)));
