@@ -26,9 +26,8 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2631aff2-bd5f-4331-a9fd-91fc4e95a347" name="Default Changelist" comment="You can now login using the database (XML) accounts. Add account not yet incorporated so must be done manually.">
+    <list default="true" id="2631aff2-bd5f-4331-a9fd-91fc4e95a347" name="Default Changelist" comment="Password checking now works. Password is stored in XML as SHA256 hashed value so you must store it as this.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database.xml" beforeDir="false" afterPath="$PROJECT_DIR$/database.xml" afterDir="false" />
     </list>
@@ -157,7 +156,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616177567705</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Password checking now works. Password is stored in XML as SHA256 hashed value so you must store it as this.">
+      <created>1616345197597</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1616345197597</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -199,49 +205,50 @@
     <MESSAGE value="added move method&#10;//need defensive coding" />
     <MESSAGE value="Added database parser plus database and begun to implement funcitonality." />
     <MESSAGE value="You can now login using the database (XML) accounts. Add account not yet incorporated so must be done manually." />
-    <option name="LAST_COMMIT_MESSAGE" value="You can now login using the database (XML) accounts. Add account not yet incorporated so must be done manually." />
+    <MESSAGE value="Password checking now works. Password is stored in XML as SHA256 hashed value so you must store it as this." />
+    <option name="LAST_COMMIT_MESSAGE" value="Password checking now works. Password is stored in XML as SHA256 hashed value so you must store it as this." />
   </component>
   <component name="WindowStateProjectService">
     <state x="128" y="90" key="DiffContextDialog" timestamp="1616170533788">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
     <state x="128" y="90" key="DiffContextDialog/0.0.1280.749@0.0.1280.749" timestamp="1616170533788" />
-    <state width="1238" height="212" key="GridCell.Tab.0.bottom" timestamp="1616344910046">
+    <state width="1238" height="204" key="GridCell.Tab.0.bottom" timestamp="1616348523855">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="212" key="GridCell.Tab.0.bottom/0.0.1280.749@0.0.1280.749" timestamp="1616344910046" />
-    <state width="1238" height="212" key="GridCell.Tab.0.center" timestamp="1616344910042">
+    <state width="1238" height="204" key="GridCell.Tab.0.bottom/0.0.1280.749@0.0.1280.749" timestamp="1616348523855" />
+    <state width="1238" height="204" key="GridCell.Tab.0.center" timestamp="1616348523853">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="212" key="GridCell.Tab.0.center/0.0.1280.749@0.0.1280.749" timestamp="1616344910042" />
-    <state width="1238" height="212" key="GridCell.Tab.0.left" timestamp="1616344910041">
+    <state width="1238" height="204" key="GridCell.Tab.0.center/0.0.1280.749@0.0.1280.749" timestamp="1616348523853" />
+    <state width="1238" height="204" key="GridCell.Tab.0.left" timestamp="1616348523852">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="212" key="GridCell.Tab.0.left/0.0.1280.749@0.0.1280.749" timestamp="1616344910041" />
-    <state width="1238" height="212" key="GridCell.Tab.0.right" timestamp="1616344910043">
+    <state width="1238" height="204" key="GridCell.Tab.0.left/0.0.1280.749@0.0.1280.749" timestamp="1616348523852" />
+    <state width="1238" height="204" key="GridCell.Tab.0.right" timestamp="1616348523854">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="212" key="GridCell.Tab.0.right/0.0.1280.749@0.0.1280.749" timestamp="1616344910043" />
-    <state width="1238" height="204" key="GridCell.Tab.1.bottom" timestamp="1616344889881">
+    <state width="1238" height="204" key="GridCell.Tab.0.right/0.0.1280.749@0.0.1280.749" timestamp="1616348523854" />
+    <state width="1238" height="204" key="GridCell.Tab.1.bottom" timestamp="1616348090449">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="204" key="GridCell.Tab.1.bottom/0.0.1280.749@0.0.1280.749" timestamp="1616344889881" />
-    <state width="1238" height="204" key="GridCell.Tab.1.center" timestamp="1616344889878">
+    <state width="1238" height="204" key="GridCell.Tab.1.bottom/0.0.1280.749@0.0.1280.749" timestamp="1616348090449" />
+    <state width="1238" height="204" key="GridCell.Tab.1.center" timestamp="1616348090446">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="204" key="GridCell.Tab.1.center/0.0.1280.749@0.0.1280.749" timestamp="1616344889878" />
-    <state width="1238" height="204" key="GridCell.Tab.1.left" timestamp="1616344889876">
+    <state width="1238" height="204" key="GridCell.Tab.1.center/0.0.1280.749@0.0.1280.749" timestamp="1616348090446" />
+    <state width="1238" height="204" key="GridCell.Tab.1.left" timestamp="1616348090445">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="204" key="GridCell.Tab.1.left/0.0.1280.749@0.0.1280.749" timestamp="1616344889876" />
-    <state width="1238" height="204" key="GridCell.Tab.1.right" timestamp="1616344889879">
+    <state width="1238" height="204" key="GridCell.Tab.1.left/0.0.1280.749@0.0.1280.749" timestamp="1616348090445" />
+    <state width="1238" height="204" key="GridCell.Tab.1.right" timestamp="1616348090448">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state width="1238" height="204" key="GridCell.Tab.1.right/0.0.1280.749@0.0.1280.749" timestamp="1616344889879" />
-    <state x="80" y="140" width="1191" height="548" key="Vcs.Push.Dialog.v2" timestamp="1616345139090">
+    <state width="1238" height="204" key="GridCell.Tab.1.right/0.0.1280.749@0.0.1280.749" timestamp="1616348090448" />
+    <state x="80" y="140" width="1191" height="548" key="Vcs.Push.Dialog.v2" timestamp="1616345211079">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
-    <state x="80" y="140" width="1191" height="548" key="Vcs.Push.Dialog.v2/0.0.1280.749@0.0.1280.749" timestamp="1616345139090" />
+    <state x="80" y="140" width="1191" height="548" key="Vcs.Push.Dialog.v2/0.0.1280.749@0.0.1280.749" timestamp="1616345211079" />
     <state x="432" y="321" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1616154628960">
       <screen x="0" y="0" width="1280" height="749" />
     </state>
@@ -265,18 +272,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
-          <line>80</line>
+          <line>97</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
-          <line>78</line>
-          <option name="timeStamp" value="20" />
+          <line>89</line>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
-          <line>66</line>
-          <option name="timeStamp" value="21" />
+          <line>67</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

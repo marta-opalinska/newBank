@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 
 public class databaseInterface {
-    public static NodeList getFileObj(){
+    public static NodeList getRootNodeObj(String root){
         try {
             File fIn = new File("database.xml");
             //an instance of factory that gives a document builder
@@ -27,7 +27,7 @@ public class databaseInterface {
             Document doc = db.parse(fIn);
             doc.getDocumentElement().normalize();
             System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
-            NodeList nodeList = doc.getElementsByTagName("account");
+            NodeList nodeList = doc.getElementsByTagName(root);
             return nodeList;
         }
         catch(Exception e){
@@ -40,7 +40,7 @@ public class databaseInterface {
         HashMap<String,Customer> customers = new HashMap<String, Customer>();
         try
         {
-            NodeList nodeList = getFileObj();
+            NodeList nodeList = getRootNodeObj("account");
             for (int itr = 0; itr < nodeList.getLength(); itr++)
             {
                 Node node = nodeList.item(itr);
@@ -49,7 +49,8 @@ public class databaseInterface {
                 {
                     Element eElement = (Element) node;
                     Customer cust = new Customer();
-                    cust.addAccount(new Account("Main", 1000.0));
+
+                    cust.addAccount(new Account("main", getBalance(eElement.getElementsByTagName("id").item(0).getTextContent())));
                     customers.put(eElement.getElementsByTagName("username").item(0).getTextContent(), cust);
                     //System.out.println("Account id: "+ eElement.getElementsByTagName("id").item(0).getTextContent());
                     //System.out.println("Name: "+ eElement.getElementsByTagName("username").item(0).getTextContent());
@@ -63,23 +64,40 @@ public class databaseInterface {
         }
         return customers;
     }
+    public static double getBalance(String accountID) {
+        NodeList nodeList = getRootNodeObj("account");
+        for (int itr = 0; itr < nodeList.getLength(); itr++) {
+            Node node = nodeList.item(itr);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) node;
+                if (eElement.getElementsByTagName("id").item(0).getTextContent().equals(accountID)) {
+                    Element cElement = (Element) eElement.getElementsByTagName("main").item(0);
+                    System.out.println("Account Balance : " + cElement.getElementsByTagName("balance").item(0).getTextContent());
+                    String balance = cElement.getElementsByTagName("balance").item(0).getTextContent().toString();
+                    try {
+                        return Double.parseDouble(balance);
+                    }
+                    catch (Exception e){
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
     public static boolean checkPassword(String userName, String password){
-        NodeList nodeList = getFileObj();
-        System.out.println(nodeList.getLength());
+        NodeList nodeList = getRootNodeObj("account");
         for (int itr = 0; itr < nodeList.getLength(); itr++)
         {
             Node node = nodeList.item(itr);
-            if (node.getNodeType() == Node.ELEMENT_NODE)
-            {
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) node;
-                System.out.println("Account id: "+ eElement.getElementsByTagName("id").item(0).getTextContent());
-                System.out.println("Name: "+ eElement.getElementsByTagName("username").item(0).getTextContent());
-                System.out.println("Password: "+ eElement.getElementsByTagName("password").item(0).getTextContent());
-
-                System.out.println(eElement.getElementsByTagName("password").item(0).getTextContent());
-
-                if(eElement.getElementsByTagName("password").item(0).getTextContent().equals(password)){
-                    return true;
+                //Make sure checking correct password
+                if (eElement.getElementsByTagName("username").item(0).getTextContent().equals(userName)){
+                    if (eElement.getElementsByTagName("password").item(0).getTextContent().equals(password)) {
+                        return true;
+                    }
                 }
             }
         }
