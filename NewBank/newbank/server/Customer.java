@@ -8,7 +8,7 @@ public class Customer {
 	private ArrayList<Account> accounts;
 	
 	public Customer() {
-		accounts = new ArrayList<>();
+		accounts = new ArrayList<Account>();
 	}
 	
 	public String accountsToString() {
@@ -18,9 +18,7 @@ public class Customer {
 		}
 		return s;
 	}
-	public double getBalance(String accountID){
-		return 0.0;
-	}
+
 	public void setBalance(double value){
 
 	}
@@ -30,7 +28,7 @@ public class Customer {
 		accounts.add(account);		
 	}
 
-	public ArrayList getAccounts(){
+	public ArrayList<Account> getAccounts(){
 		return accounts;
 	}
 }

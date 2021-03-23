@@ -21,7 +21,7 @@ public class NewBank {
         customers = getCustomerData();
     }
     public synchronized CustomerID checkLogInDetails(String userName, String password) {
-        String hashPword = "";
+        String hashPword;
         try {
             hashPword = toHexString(getSHA(password));
             System.out.println(toHexString(getSHA(password)));
@@ -81,8 +81,6 @@ public class NewBank {
   public static NewBank getBank() {
     return bank;
   }
-
-
 
   // commands from the NewBank customer are processed in this method
   public synchronized Boolean processRequest(CustomerID customer, HashMap<String, String> request, Socket s) throws IOException {
@@ -271,6 +269,7 @@ public class NewBank {
         to.deposit(amount);
         System.out.println(to);
       }
+      databaseInterface.updateDatabase(customers);
       //prints server side information about the transfer
       System.out.println("|NEWTRANSFER:" + "|FROM:" + customer.getKey() + "|" + from.getAccountName() + "| TO:" + payee + "| AMOUNT:" + amount + "|");
       printToUser("Account Updated:" + from);

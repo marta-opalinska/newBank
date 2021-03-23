@@ -9,6 +9,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 
 public class databaseInterface {
@@ -44,8 +45,11 @@ public class databaseInterface {
                 {
                     Element eElement = (Element) node;
                     Customer cust = new Customer();
-
-                    cust.addAccount(new Account("main", getBalance("main",eElement.getElementsByTagName("id").item(0).getTextContent())));
+                    String accountsList = eElement.getElementsByTagName("accounts").item(0).getTextContent().toString();
+                    String[] accountArray = accountsList.split(",");
+                    for (String account : accountArray) {
+                        cust.addAccount(new Account(account, getBalance(account,eElement.getElementsByTagName("id").item(0).getTextContent())));
+                    }
                     customers.put(eElement.getElementsByTagName("username").item(0).getTextContent(), cust);
                     //System.out.println("Account id: "+ eElement.getElementsByTagName("id").item(0).getTextContent());
                     //System.out.println("Name: "+ eElement.getElementsByTagName("username").item(0).getTextContent());
@@ -98,8 +102,20 @@ public class databaseInterface {
         }
         return false;
     }
-    public void updateDatabase(){
-
+    public static void updateDatabase(HashMap<String,Customer> customers){
+        NodeList nodeList = getRootNodeObj("account");
+        int itr = 0;
+        for(Customer customer:customers.values()){
+            Node node = nodeList.item(itr);
+            Element eElement = (Element) node;
+            for (Account acc : customer.getAccounts()){
+                //Need to define what gets updated, probably balance?
+                Element cElement = (Element) eElement.getElementsByTagName(acc.getAccountName()).item(0);
+                String balance = cElement.getElementsByTagName("balance").item(0).getTextContent().toString();
+                eElement.getElementsByTagName("balance").item(0).setNodeValue(acc.getBalance().toString());
+            }
+            itr++;
+        }
     }
 
 }
