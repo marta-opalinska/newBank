@@ -13,29 +13,31 @@ import java.security.NoSuchAlgorithmException;
 public class NewBank {
 
   private static final NewBank bank = new NewBank();
-  private final HashMap<String, Customer> customers;
+  //private final HashMap<String, Customer> customers;
+  private  Customer activeCustomer;
   private Socket socket;
   private NewBank() {
         //customers = new HashMap<>();
         //addTestData();
-        customers = getCustomerData();
-    }
-    public synchronized CustomerID checkLogInDetails(String userName, String password) {
-        String hashPword;
-        try {
-            hashPword = toHexString(getSHA(password));
-            System.out.println(toHexString(getSHA(password)));
-            if (customers.containsKey(userName)) {
-                if (databaseInterface.checkPassword(userName, hashPword)) {
-                    return new CustomerID(userName);
-                }
-            }
-        } catch (NoSuchAlgorithmException e) {
-            return null;
-        }
+        //customers = getCustomerData();
+        //activeCustomer = initialiseSession();
+  }
 
-        return null;
-    }
+  public synchronized Customer checkLogInDetails(String userName, String password) {
+      String hashPword;
+      try {
+          hashPword = toHexString(getSHA(password));
+          System.out.println(toHexString(getSHA(password)));
+          activeCustomer = databaseInterface.getCustomer(userName);
+          if (databaseInterface.checkPassword(userName, hashPword)) {
+              return activeCustomer;
+          }
+      } catch (NoSuchAlgorithmException e) {
+          return null;
+      }
+
+      return null;
+  }
   public static byte[] getSHA(String input) throws NoSuchAlgorithmException
   {
     MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -51,25 +53,23 @@ public class NewBank {
     }
     return hexString.toString();
   }
-    private HashMap<String, Customer> getCustomerData() {
-        databaseInterface database = new databaseInterface();
-        HashMap<String, Customer> customers1 = new HashMap<>();
-        try {
-            customers1 = databaseInterface.readFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return customers1;
-    }
-  
-
+  private HashMap<String, Customer> getCustomerData() {
+      databaseInterface database = new databaseInterface();
+      HashMap<String, Customer> customers1 = new HashMap<>();
+      try {
+          customers1 = databaseInterface.readFile();
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+      return customers1;
+  }
 
   public static NewBank getBank() {
     return bank;
   }
 
   // commands from the NewBank customer are processed in this method
-  public synchronized Boolean processRequest(CustomerID customer, HashMap<String, String> request, Socket s) throws IOException {
+  public synchronized Boolean processRequest(Customer customer, HashMap<String, String> request, Socket s) throws IOException {
     //connects newbank to the socket so client can be communicated with in the bank interface
     this.socket = s;
     // running the command

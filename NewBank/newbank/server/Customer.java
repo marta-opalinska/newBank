@@ -27,6 +27,10 @@ public class Customer {
 
 	}
 
+	public String getName(){
+		return username;
+	}
+
 
 	public void addAccount(Account account) {
 		accounts.add(account);		
