@@ -102,14 +102,17 @@ public class databaseInterface {
         }
         return false;
     }
-    public void updateDatabase(HashMap<String,Customer> customers){
+    public static void updateDatabase(HashMap<String,Customer> customers){
         NodeList nodeList = getRootNodeObj("account");
         int itr = 0;
         for(Customer customer:customers.values()){
             Node node = nodeList.item(itr);
             Element eElement = (Element) node;
             for (Account acc : customer.getAccounts()){
-                eElement.getElementsByTagName("").item(0).setNodeValue(acc.getBalance().toString());
+                //Need to define what gets updated, probably balance?
+                Element cElement = (Element) eElement.getElementsByTagName(acc.getAccountName()).item(0);
+                String balance = cElement.getElementsByTagName("balance").item(0).getTextContent().toString();
+                eElement.getElementsByTagName("balance").item(0).setNodeValue(acc.getBalance().toString());
             }
             itr++;
         }

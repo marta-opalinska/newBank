@@ -82,8 +82,6 @@ public class NewBank {
     return bank;
   }
 
-
-
   // commands from the NewBank customer are processed in this method
   public synchronized Boolean processRequest(CustomerID customer, HashMap<String, String> request, Socket s) throws IOException {
     //connects newbank to the socket so client can be communicated with in the bank interface
@@ -271,6 +269,7 @@ public class NewBank {
         to.deposit(amount);
         System.out.println(to);
       }
+      databaseInterface.updateDatabase(customers);
       //prints server side information about the transfer
       System.out.println("|NEWTRANSFER:" + "|FROM:" + customer.getKey() + "|" + from.getAccountName() + "| TO:" + payee + "| AMOUNT:" + amount + "|");
       printToUser("Account Updated:" + from);
