@@ -27,8 +27,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2631aff2-bd5f-4331-a9fd-91fc4e95a347" name="Default Changelist" comment="Start of implemeting update database. Should be able to update balances for all accounts.">
-      <change beforePath="$PROJECT_DIR$/.idea/newBank.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/newBank.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java" afterDir="false" />
     </list>
@@ -92,7 +92,7 @@
       <command value="git pull origin main" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.NewBankServer">
+  <component name="RunManager" selected="Application.ExampleClient">
     <configuration name="ExampleClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="newbank.client.ExampleClient" />
       <module name="newBank" />
@@ -134,8 +134,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.NewBankServer" />
         <item itemvalue="Application.ExampleClient" />
+        <item itemvalue="Application.NewBankServer" />
         <item itemvalue="JUnit.All in newBank" />
       </list>
     </recent_temporary>
@@ -205,7 +205,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616356901939</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Began work on database interface. Agreed today to change project design so as not to load whole database of customers. Therefore holting work on this function as it's purpose will change.">
+      <created>1616526652159</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1616526652159</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -252,14 +259,15 @@
     <MESSAGE value="Fixed some issues created on merge" />
     <MESSAGE value="Updated XML Schema. To add account types add XML block (see main/savings) and then name to list." />
     <MESSAGE value="Start of implemeting update database. Should be able to update balances for all accounts." />
-    <option name="LAST_COMMIT_MESSAGE" value="Start of implemeting update database. Should be able to update balances for all accounts." />
+    <MESSAGE value="Began work on database interface. Agreed today to change project design so as not to load whole database of customers. Therefore holting work on this function as it's purpose will change." />
+    <option name="LAST_COMMIT_MESSAGE" value="Began work on database interface. Agreed today to change project design so as not to load whole database of customers. Therefore holting work on this function as it's purpose will change." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
-          <line>101</line>
+          <line>137</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -269,7 +277,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
-          <line>105</line>
+          <line>141</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>

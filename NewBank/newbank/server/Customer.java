@@ -4,11 +4,15 @@ import java.util.ArrayList;
 
 public class Customer {
 
-	private databaseInterface database;
 	private ArrayList<Account> accounts;
+	private String username;
+	private String accountID;
 	
-	public Customer() {
+	public Customer(String userName, String AccountID) {
+
 		accounts = new ArrayList<Account>();
+		username = userName;
+		accountID = AccountID;
 	}
 	
 	public String accountsToString() {
