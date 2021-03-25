@@ -169,13 +169,15 @@ public class databaseInterface {
                 Element eElement = (Element) node;
                 //Make sure checking correct password
                 if (eElement.getElementsByTagName("id").item(0).getTextContent().equals(customer.getAccountID())){
+
                     int i = 0;
                     for (Account acc : customer.getAccounts()) {
                         Element cElement = (Element) eElement.getElementsByTagName(acc.getAccountName()).item(0);
-                        cElement.getElementsByTagName("balance").item(0).setNodeValue(acc.getBalance().toString());
+                        cElement.getElementsByTagName("balance").item(0).setTextContent(acc.getBalance().toString());
                         i++;
                     }
                 }
+                //doc.adoptNode(node);
             }
         }
         try {

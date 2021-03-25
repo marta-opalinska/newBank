@@ -166,7 +166,7 @@ public class NewBank {
   //maybe best to build entirely separate class for move/payment transactions?
   public Boolean paymentSend(Customer customer) throws IOException {
     try {
-      customer.setBalance(200);
+      customer.getAccount("main").deposit(100000);
       databaseInterface.updateDatabase(customer);
     }
     catch(Exception e){}

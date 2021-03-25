@@ -27,7 +27,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2631aff2-bd5f-4331-a9fd-91fc4e95a347" name="Default Changelist" comment="Start of implemeting update database. Should be able to update balances for all accounts.">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" afterDir="false" />
@@ -228,7 +227,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616529683686</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Further database implementation. Write to database should now work">
+      <created>1616697655585</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1616697655585</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -278,7 +284,8 @@
     <MESSAGE value="Began work on database interface. Agreed today to change project design so as not to load whole database of customers. Therefore holting work on this function as it's purpose will change." />
     <MESSAGE value="Changed database interface significantly. Added getCustomer, customerExists classes. Also changed customer object so it is initalised with a username and account ID. Now when you login your session is initialised (sort of) as a customer with ID and assocaited accounts." />
     <MESSAGE value="Changed database interface significantly. Added getCustomer, customerExists classes. Also changed customer object so it is initalised with a username and account ID. Now when you login your session is initialised (sort of) as a customer with ID and assocaited accounts.&#10;&#10;Made further updates, customerID class should no longer be required. Many of the new bank methods need rewriting (as discussed). However then interfaces to the database should now exist. The write methods still need doing, but read is done." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed database interface significantly. Added getCustomer, customerExists classes. Also changed customer object so it is initalised with a username and account ID. Now when you login your session is initialised (sort of) as a customer with ID and assocaited accounts.&#10;&#10;Made further updates, customerID class should no longer be required. Many of the new bank methods need rewriting (as discussed). However then interfaces to the database should now exist. The write methods still need doing, but read is done." />
+    <MESSAGE value="Further database implementation. Write to database should now work" />
+    <option name="LAST_COMMIT_MESSAGE" value="Further database implementation. Write to database should now work" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -290,12 +297,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
-          <line>162</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
-          <line>181</line>
+          <line>182</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>

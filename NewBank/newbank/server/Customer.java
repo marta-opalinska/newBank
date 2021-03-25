@@ -26,7 +26,14 @@ public class Customer {
 	public void setBalance(double value){
 
 	}
-
+	public Account getAccount(String name){
+		for (Account acc:accounts){
+			if (name.equals(acc.getAccountName()))	{
+				return acc;
+			}
+		}
+		return null;
+	}
 	public String getName(){
 		return username;
 	}

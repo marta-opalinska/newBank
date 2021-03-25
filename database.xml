@@ -14,10 +14,10 @@
         <password>7daa446b81408e830de5979c926b435e85bfbfb3281e1da42f31e8297d7448a5</password>
         <accounts>main,savings</accounts>
         <main>
-            <balance>1000</balance>
+            <balance>101000.0</balance>
         </main>
         <savings>
-            <balance>100</balance>
+            <balance>100.0</balance>
         </savings>
         <loan>
             <value>100</value>
