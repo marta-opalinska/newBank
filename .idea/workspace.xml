@@ -27,10 +27,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2631aff2-bd5f-4331-a9fd-91fc4e95a347" name="Default Changelist" comment="Start of implemeting update database. Should be able to update balances for all accounts.">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/NewBankClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/NewBankClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.xml" beforeDir="false" afterPath="$PROJECT_DIR$/database.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +94,7 @@
       <command value="git pull origin main" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.ExampleClient">
+  <component name="RunManager" selected="Application.NewBankServer">
     <configuration name="ExampleClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="newbank.client.ExampleClient" />
       <module name="newBank" />
@@ -219,7 +221,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616528016217</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Changed database interface significantly. Added getCustomer, customerExists classes. Also changed customer object so it is initalised with a username and account ID. Now when you login your session is initialised (sort of) as a customer with ID and assocaited accounts.&#10;&#10;Made further updates, customerID class should no longer be required. Many of the new bank methods need rewriting (as discussed). However then interfaces to the database should now exist. The write methods still need doing, but read is done.">
+      <created>1616529683686</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1616529683686</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -268,16 +277,12 @@
     <MESSAGE value="Start of implemeting update database. Should be able to update balances for all accounts." />
     <MESSAGE value="Began work on database interface. Agreed today to change project design so as not to load whole database of customers. Therefore holting work on this function as it's purpose will change." />
     <MESSAGE value="Changed database interface significantly. Added getCustomer, customerExists classes. Also changed customer object so it is initalised with a username and account ID. Now when you login your session is initialised (sort of) as a customer with ID and assocaited accounts." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed database interface significantly. Added getCustomer, customerExists classes. Also changed customer object so it is initalised with a username and account ID. Now when you login your session is initialised (sort of) as a customer with ID and assocaited accounts." />
+    <MESSAGE value="Changed database interface significantly. Added getCustomer, customerExists classes. Also changed customer object so it is initalised with a username and account ID. Now when you login your session is initialised (sort of) as a customer with ID and assocaited accounts.&#10;&#10;Made further updates, customerID class should no longer be required. Many of the new bank methods need rewriting (as discussed). However then interfaces to the database should now exist. The write methods still need doing, but read is done." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed database interface significantly. Added getCustomer, customerExists classes. Also changed customer object so it is initalised with a username and account ID. Now when you login your session is initialised (sort of) as a customer with ID and assocaited accounts.&#10;&#10;Made further updates, customerID class should no longer be required. Many of the new bank methods need rewriting (as discussed). However then interfaces to the database should now exist. The write methods still need doing, but read is done." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
-          <line>137</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/NewBank/newbank/newbank/server/NewBank.java</url>
           <line>22</line>
@@ -285,8 +290,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
-          <line>141</line>
-          <option name="timeStamp" value="26" />
+          <line>162</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
+          <line>181</line>
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

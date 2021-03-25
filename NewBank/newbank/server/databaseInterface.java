@@ -8,8 +8,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
-import java.util.HashMap;
-import java.util.ArrayList;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.parsers.ParserConfigurationException;
+
 
 
 public class databaseInterface {
@@ -25,6 +30,22 @@ public class databaseInterface {
             System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
             NodeList nodeList = doc.getElementsByTagName(root);
             return nodeList;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public static Document getDoc(String root){
+        try {
+            File fIn = new File("database.xml");
+            //an instance of factory that gives a document builder
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            //an instance of builder to parse the specified xml file
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(fIn);
+            doc.getDocumentElement().normalize();
+            return doc;
         }
         catch(Exception e){
             e.printStackTrace();
@@ -138,20 +159,35 @@ public class databaseInterface {
         }
         return false;
     }
-    public static void updateDatabase(HashMap<String,Customer> customers){
-        NodeList nodeList = getRootNodeObj("account");
-        int itr = 0;
-        for(Customer customer:customers.values()){
+    public static void updateDatabase(Customer customer){
+        Document doc = getDoc("account");
+        NodeList nodeList = doc.getElementsByTagName("account");
+        for (int itr = 0; itr < nodeList.getLength(); itr++)
+        {
             Node node = nodeList.item(itr);
-            Element eElement = (Element) node;
-            for (Account acc : customer.getAccounts()){
-                //Need to define what gets updated, probably balance?
-                Element cElement = (Element) eElement.getElementsByTagName(acc.getAccountName()).item(0);
-                String balance = cElement.getElementsByTagName("balance").item(0).getTextContent().toString();
-                eElement.getElementsByTagName("balance").item(0).setNodeValue(acc.getBalance().toString());
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) node;
+                //Make sure checking correct password
+                if (eElement.getElementsByTagName("id").item(0).getTextContent().equals(customer.getAccountID())){
+                    int i = 0;
+                    for (Account acc : customer.getAccounts()) {
+                        Element cElement = (Element) eElement.getElementsByTagName(acc.getAccountName()).item(0);
+                        cElement.getElementsByTagName("balance").item(0).setNodeValue(acc.getBalance().toString());
+                        i++;
+                    }
+                }
             }
-            itr++;
+        }
+        try {
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File("database.xml"));
+            transformer.transform(source, result);
+        } catch (TransformerException tfe) {
+            tfe.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
 }

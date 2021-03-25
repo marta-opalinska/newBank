@@ -1,4 +1,4 @@
-<accounts>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><accounts>
     <account>
         <id>0</id>
         <username>admin</username>
@@ -17,7 +17,7 @@
             <balance>1000</balance>
         </main>
         <savings>
-        	<balance>100</balance>
+            <balance>100</balance>
         </savings>
         <loan>
             <value>100</value>

@@ -30,7 +30,7 @@ public class Customer {
 	public String getName(){
 		return username;
 	}
-
+	public String getAccountID(){return accountID;}
 
 	public void addAccount(Account account) {
 		accounts.add(account);		

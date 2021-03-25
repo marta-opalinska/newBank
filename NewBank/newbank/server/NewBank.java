@@ -53,7 +53,7 @@ public class NewBank {
     }
     return hexString.toString();
   }
-  private HashMap<String, Customer> getCustomerData() {
+  /*private HashMap<String, Customer> getCustomerData() {
       databaseInterface database = new databaseInterface();
       HashMap<String, Customer> customers1 = new HashMap<>();
       try {
@@ -62,7 +62,7 @@ public class NewBank {
           e.printStackTrace();
       }
       return customers1;
-  }
+  }*/
 
   public static NewBank getBank() {
     return bank;
@@ -82,9 +82,9 @@ public class NewBank {
       case Constants.PAY_COMMAND:
         return paymentSend(customer);
       case Constants.SHOW_ACCOUNTS_COMMAND:
-        return showMyAccounts(customer);
+        //return showMyAccounts(customer);
       case Constants.MOVE_ACCOUNTS_COMMAND:
-        return moveAccounts(customer);
+        //return moveAccounts(customer);
       default:
         printToUser(Constants.PRINT_RED+ "Command not found. "+ Constants.RESET_COLOUR);
         return false;
@@ -92,17 +92,17 @@ public class NewBank {
   }
 
   private Boolean showMyAccounts(CustomerID customer) {
-    printToUser((customers.get(customer.getKey())).accountsToString());
+    //printToUser((customer.getKey(customer.getKey())).accountsToString());
     return true;
   }
 
   //add defensiveness(quit on EXIT)
-  public Boolean moveAccounts(CustomerID customer) throws IOException {
+  public Boolean moveAccounts(Customer customer) throws IOException {
     try {
       newbank.server.Account from;
       newbank.server.Account to;
       double amount = 0;
-      ArrayList<Account> customerAccounts = customers.get(customer.getKey()).getAccounts();
+      ArrayList<Account> customerAccounts = customer.getAccounts();
       printToUser("Select Account to transfer from:");
       for (Account a : customerAccounts) {
         printToUser(a.toString());
@@ -164,9 +164,13 @@ public class NewBank {
 
   //pay feature implementation: added a getAccounts(which returns an arraylist) function to Customer class
   //maybe best to build entirely separate class for move/payment transactions?
-  public Boolean paymentSend(CustomerID customer) throws IOException {
+  public Boolean paymentSend(Customer customer) throws IOException {
     try {
-      newbank.server.Account from;
+      customer.setBalance(200);
+      databaseInterface.updateDatabase(customer);
+    }
+    catch(Exception e){}
+      /*newbank.server.Account from;
       double amount = 0;
       newbank.server.Account to = null;
       boolean isPayeeInNewbank = false;
@@ -255,7 +259,8 @@ public class NewBank {
         to.deposit(amount);
         System.out.println(to);
       }
-      databaseInterface.updateDatabase(customers);
+      activeCustomer.setBalance(200);
+      databaseInterface.updateDatabase(activeCustomer);
       //prints server side information about the transfer
       System.out.println("|NEWTRANSFER:" + "|FROM:" + customer.getKey() + "|" + from.getAccountName() + "| TO:" + payee + "| AMOUNT:" + amount + "|");
       printToUser("Account Updated:" + from);
@@ -263,6 +268,9 @@ public class NewBank {
     } catch (RuntimeException e) {
       return false;
     }
+
+       */
+      return true;
   }
 
   //function to send a String to the client
