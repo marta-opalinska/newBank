@@ -18,7 +18,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 
 public class databaseInterface {
-    public static NodeList getRootNodeObj(String root){
+    private static NodeList getRootNodeObj(String root){
         try {
             File fIn = new File("database.xml");
             //an instance of factory that gives a document builder
@@ -36,7 +36,7 @@ public class databaseInterface {
             return null;
         }
     }
-    public static Document getDoc(String root){
+    private static Document getDoc(String root){
         try {
             File fIn = new File("database.xml");
             //an instance of factory that gives a document builder
@@ -73,38 +73,6 @@ public class databaseInterface {
         }
         return null;
     }
-    /*public static HashMap<String,Customer> readFile() throws IOException{
-        //ArrayList<Customer> customers = new ArrayList<Customer>();
-        HashMap<String,Customer> customers = new HashMap<String, Customer>();
-        try
-        {
-            NodeList nodeList = getRootNodeObj("account");
-            for (int itr = 0; itr < nodeList.getLength(); itr++)
-            {
-                Node node = nodeList.item(itr);
-                System.out.println("\nNode Name :" + node.getNodeName());
-                if (node.getNodeType() == Node.ELEMENT_NODE)
-                {
-                    Element eElement = (Element) node;
-                    Customer cust = new Customer();
-                    String accountsList = eElement.getElementsByTagName("accounts").item(0).getTextContent().toString();
-                    String[] accountArray = accountsList.split(",");
-                    for (String account : accountArray) {
-                        cust.addAccount(new Account(account, getBalance(account,eElement.getElementsByTagName("id").item(0).getTextContent())));
-                    }
-                    customers.put(eElement.getElementsByTagName("username").item(0).getTextContent(), cust);
-                    //System.out.println("Account id: "+ eElement.getElementsByTagName("id").item(0).getTextContent());
-                    //System.out.println("Name: "+ eElement.getElementsByTagName("username").item(0).getTextContent());
-                    //System.out.println("Password: "+ eElement.getElementsByTagName("password").item(0).getTextContent());
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        return customers;
-    }*/
     public static double getBalance(String accountType,String accountID) {
         NodeList nodeList = getRootNodeObj("account");
         for (int itr = 0; itr < nodeList.getLength(); itr++) {
@@ -167,9 +135,7 @@ public class databaseInterface {
             Node node = nodeList.item(itr);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) node;
-                //Make sure checking correct password
                 if (eElement.getElementsByTagName("id").item(0).getTextContent().equals(customer.getAccountID())){
-
                     int i = 0;
                     for (Account acc : customer.getAccounts()) {
                         Element cElement = (Element) eElement.getElementsByTagName(acc.getAccountName()).item(0);

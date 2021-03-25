@@ -14,17 +14,12 @@ public class Customer {
 		username = userName;
 		accountID = AccountID;
 	}
-	
 	public String accountsToString() {
 		String s = "";
 		for(Account a : accounts) {
 			s += a.toString();
 		}
 		return s;
-	}
-
-	public void setBalance(double value){
-
 	}
 	public Account getAccount(String name){
 		for (Account acc:accounts){
@@ -38,11 +33,9 @@ public class Customer {
 		return username;
 	}
 	public String getAccountID(){return accountID;}
-
 	public void addAccount(Account account) {
 		accounts.add(account);		
 	}
-
 	public ArrayList<Account> getAccounts(){
 		return accounts;
 	}

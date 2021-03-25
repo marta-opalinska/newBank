@@ -27,11 +27,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2631aff2-bd5f-4331-a9fd-91fc4e95a347" name="Default Changelist" comment="Start of implemeting update database. Should be able to update balances for all accounts.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/NewBank.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.xml" beforeDir="false" afterPath="$PROJECT_DIR$/database.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +230,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616697655585</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Write to database now updating XML file properly. Currently only doing balance, but method can trivially be applied to all fields.">
+      <created>1616704670410</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1616704670410</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -285,7 +288,8 @@
     <MESSAGE value="Changed database interface significantly. Added getCustomer, customerExists classes. Also changed customer object so it is initalised with a username and account ID. Now when you login your session is initialised (sort of) as a customer with ID and assocaited accounts." />
     <MESSAGE value="Changed database interface significantly. Added getCustomer, customerExists classes. Also changed customer object so it is initalised with a username and account ID. Now when you login your session is initialised (sort of) as a customer with ID and assocaited accounts.&#10;&#10;Made further updates, customerID class should no longer be required. Many of the new bank methods need rewriting (as discussed). However then interfaces to the database should now exist. The write methods still need doing, but read is done." />
     <MESSAGE value="Further database implementation. Write to database should now work" />
-    <option name="LAST_COMMIT_MESSAGE" value="Further database implementation. Write to database should now work" />
+    <MESSAGE value="Write to database now updating XML file properly. Currently only doing balance, but method can trivially be applied to all fields." />
+    <option name="LAST_COMMIT_MESSAGE" value="Write to database now updating XML file properly. Currently only doing balance, but method can trivially be applied to all fields." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -297,7 +301,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
-          <line>182</line>
+          <line>181</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
