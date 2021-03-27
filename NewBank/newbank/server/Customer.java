@@ -39,4 +39,29 @@ public class Customer {
 	public ArrayList<Account> getAccounts(){
 		return accounts;
 	}
+
+	public boolean areFundsSufficient(String accountName, double amount){
+		Account account = getAccount(accountName);
+		return account.canWithdraw(amount);
+	}
+
+	public void withdrawMoney(String accountName, double amount){
+		// protection against negative money transfers
+		if(amount >= 0) {
+			Account account = getAccount(accountName);
+			account.withdraw(amount);
+		}
+	}
+
+	public void addMoney(String accountName, double amount){
+		// protection against negative money transfers
+		if(amount >= 0){
+			Account account = getAccount(accountName);
+			account.deposit(amount);
+		}
+	}
+
+	public boolean isAccountAvailable(String source) {
+		return getAccount(source) == null? false: true;
+	}
 }

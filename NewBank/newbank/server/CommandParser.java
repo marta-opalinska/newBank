@@ -24,11 +24,22 @@ public class CommandParser {
     HashMap<String, String> parsedCommand = new HashMap<>();
     // spliting command by blank space
     String[] splitCommand = input.split("\\s+");
+    for (String s:splitCommand
+         ) {
+      System.out.println("Split command"+ s);
+    }
+
     // adding command name to the map
     parsedCommand.put("commandName", splitCommand[0]);
     String commandParam, paramValue;
-    for (int i = 1; i < splitCommand.length - 1; i++) {
+    for (int i = 1; i < splitCommand.length; i++) {
       commandParam = splitCommand[i];
+      // last value from the string
+      if((i == splitCommand.length -1) && isParam(commandParam)){
+        // parameter without value
+        parsedCommand.put(String.valueOf(commandParam.charAt(1)), null);
+        break;
+      }
       paramValue = splitCommand[i + 1];
       // checking if that is the command parameter
       if (isParam(commandParam)) {

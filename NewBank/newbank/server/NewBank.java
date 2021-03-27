@@ -74,7 +74,7 @@ public class NewBank {
     this.socket = s;
     // running the command
     if(request.isEmpty()){
-      printToUser(Constants.PRINT_RED+ "Not valid command format."+ Constants.RESET_COLOUR);
+      printToUser(Constants.PRINT_RED+ "Not valid command format."+ Constants.RESET_STYLE);
       return false;
     }
     String commandName = request.get("commandName").toLowerCase();
@@ -86,14 +86,9 @@ public class NewBank {
       case Constants.MOVE_ACCOUNTS_COMMAND:
         //return moveAccounts(customer);
       default:
-        printToUser(Constants.PRINT_RED+ "Command not found. "+ Constants.RESET_COLOUR);
+        printToUser(Constants.PRINT_RED+ "Command not found. "+ Constants.RESET_STYLE);
         return false;
     }
-  }
-
-  private Boolean showMyAccounts(CustomerID customer) {
-    //printToUser((customer.getKey(customer.getKey())).accountsToString());
-    return true;
   }
 
   //add defensiveness(quit on EXIT)
