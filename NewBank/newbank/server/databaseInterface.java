@@ -127,6 +127,7 @@ public class databaseInterface {
         }
         return false;
     }
+
     public static void updateDatabase(Customer customer){
         Document doc = getDoc("account");
         NodeList nodeList = doc.getElementsByTagName("account");
