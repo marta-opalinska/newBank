@@ -57,7 +57,7 @@ public class CustomerPrint {
         printInfo("Command for transferring money to an EXTERNAL customer.");
         printCommandHelpArguments("a", "amount to transfer");
         printCommandHelpArguments("s", "source account name");
-        printCommandHelpArguments("d", "destination account name");
+        printCommandHelpArguments("d", "destination account number");
         printInfo("Optional parameters:");
         printCommandHelpArguments("t", "transaction title");
         return;
