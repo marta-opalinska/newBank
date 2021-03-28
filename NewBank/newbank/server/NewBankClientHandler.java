@@ -49,23 +49,34 @@ public class NewBankClientHandler extends Thread {
 
   public void run() {
     Customer customer = logIn();
-    // if the user is authenticated then get requests from the user and process them
-    if (customer != null) {
-      out.printInfo("Log In Successful.");
-      out.printRequest("What do you want to do?");
-      // keep getting requests from the client and processing them
-      requestsLoop(customer);
-    } else {
+    while (customer == null) {
       out.printError("Log In Failed");
+      customer = logIn();
     }
+    // if the user is authenticated then get requests from the user and process them
+    out.printInfo("Log In Successful.");
+    out.printRequest("What do you want to do?");
+    // keep getting requests from the client and processing them
+    requestsLoop(customer);
+    return;
   }
 
   private void requestsLoop(Customer customer) {
+    boolean exit = false;
     try {
-      while (true) {
+      while (!exit) {
         String request = safeLineReading();
         System.out.println("Request from " + customer.getName());
         HashMap<String, String> customerInput = CommandParser.parseFullCommand(request);
+        // logging out
+        if (customerInput.get("commandName").equals(Constants.LOG_OUT) || customerInput.get("commandName").equals(Constants.EXIT)) {
+          out.printRequest("Are you sure you want to log out? y/n");
+          if (confirm()) {
+            out.printInfo("Logging out...");
+            out.printInfo("Logout finished.");
+            exit = true;
+          }
+        }
         Boolean isCommandDone = processRequest(customer, customerInput);
         if (!isCommandDone) {
           out.printInfo("The command was not successful.");
@@ -82,6 +93,8 @@ public class NewBankClientHandler extends Thread {
         Thread.currentThread().interrupt();
       }
     }
+    Thread.currentThread().interrupt();
+    return;
   }
 
   private Boolean processRequest(Customer customer, HashMap<String, String> request) {
@@ -90,7 +103,7 @@ public class NewBankClientHandler extends Thread {
       return false;
     }
     try {
-      String commandName = request.get("commandName").toLowerCase();
+      String commandName = request.get("commandName");
 
       // providing help for command
       if (request.containsKey("h")) {

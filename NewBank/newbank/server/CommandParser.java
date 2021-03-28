@@ -21,6 +21,8 @@ public class CommandParser {
    * @return map with in form: [arg: value]
    */
   public static HashMap<String, String> parseFullCommand(String input) {
+    //unifying letters
+    input = input.toLowerCase();
     HashMap<String, String> parsedCommand = new HashMap<>();
     // spliting command by blank space
     String[] splitCommand = input.split("\\s+");

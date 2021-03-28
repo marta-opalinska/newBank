@@ -16,6 +16,10 @@ public final class Constants {
   // confirmation options
   public static final ArrayList<String> CONFIRM = new ArrayList<>(Arrays.asList("yes", "y"));
   public static final ArrayList<String> REJECT = new ArrayList<>(Arrays.asList("no", "n"));
+
+  //log out options
+  public static final String LOG_OUT = "logout";
+  public static final String EXIT = "exit";
   // number of attempts
 
   public static final int ATTEMPTS = 4;

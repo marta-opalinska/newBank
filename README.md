@@ -28,3 +28,10 @@ Our application have following commands available:
 * addaccount
   * [-h] - printing help
   * [-n] - choosing new account name
+* exit/logout
+  
+Server response can be divided into three categories:
+- requests (blue in command line) - bank app needs information from the customer
+- information (white in command line) - information for the customer
+- error (red in command line) - errors during processing request
+- warnings (orange in command line) - warning for the user
