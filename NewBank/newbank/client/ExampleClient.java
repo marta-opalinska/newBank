@@ -31,7 +31,7 @@ public class ExampleClient extends Thread {
         try {
           while (true) {
             String response = bankServerIn.readLine();
-            if (response.equals("Logout finished.")) {
+            if (response != null && response.equals("Logout finished.")) {
               server.close();
               Thread.currentThread().interrupt();
               break;
