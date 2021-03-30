@@ -56,7 +56,8 @@ public class CommandParser {
         // parameter without value
         parsedCommand.put(String.valueOf(commandParam.charAt(1)), null);
       } else {
-        parsedCommand.clear();
+//        parsedCommand.clear();
+//        parsedCommand.put("commandName", splitCommand[0]);
         break;
       }
     }

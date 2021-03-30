@@ -68,7 +68,6 @@ public class NewBankClientHandler extends Thread {
         String request = safeLineReading();
         System.out.println("Request from " + customer.getName());
         HashMap<String, String> customerInput = CommandParser.parseFullCommand(request);
-        // logging out
         if (customerInput.get("commandName").equals(Constants.LOG_OUT) || customerInput.get("commandName").equals(Constants.EXIT)) {
           out.printRequest("Are you sure you want to log out? y/n");
           if (confirm()) {
@@ -244,7 +243,7 @@ public class NewBankClientHandler extends Thread {
    * @return if the operation was succesful
    */
   private Boolean addAccount(Customer customer, String name) {
-    if (name == null) {
+    if (name != null) {
       out.printError("Incorrect parameter.");
       return false;
     }
