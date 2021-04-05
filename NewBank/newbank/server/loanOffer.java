@@ -1,8 +1,9 @@
 package newbank.server;
 
 public class loanOffer extends preLoan {
-    public loanOffer(Customer cust, double initialAmount, double annualAPR, int days) {
-        super(cust, initialAmount, days);
+    public loanOffer(String username, double initialAmount, double annualAPR, int days) {
+        super(username, initialAmount, days);
+        Customer cust = databaseInterface.getCustomer(username);
         if(canLoan(cust, initialAmount)){
             loanStatus = status.Open;
             withDrawForLoan(cust, initialAmount);
@@ -26,6 +27,7 @@ public class loanOffer extends preLoan {
 
     public void buildLoan(Customer debtor){
         Loan toAdd = new Loan(this, debtor);
+        //needs method to add Loan to database of loans
         this.changeStatus(status.Loaned);
     }
 }

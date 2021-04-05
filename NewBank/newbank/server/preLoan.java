@@ -5,6 +5,7 @@ public abstract class preLoan {
     int id;
     status loanStatus;
     Customer creator;
+    String creator_username;
     double amount;
     double repaymentAmount;
     int daysToRepayment;
@@ -12,9 +13,10 @@ public abstract class preLoan {
 
     //annualAPR represents a percent APR, such as 5.5. this is then converted to the actual changes, such as
     //1.055, in the getrepaymentmethod
-    public preLoan(Customer cust, double initialAmount, int days){
+    public preLoan(String cust, double initialAmount, int days){
         this.loanStatus = status.Open;
-        this.creator = cust;
+        this.creator_username = cust;
+        this.creator = databaseInterface.getCustomer(cust);
         this.amount = initialAmount;
         this.daysToRepayment = days;
         this.repaymentAmount = getRepaymentAmount(initialAmount, annualAPR, days);
@@ -29,9 +31,9 @@ public abstract class preLoan {
         }
     }
 
-    public double getRepaymentAmount(double Amount, double annualAPR, int days){
+    public double getRepaymentAmount(double amount, double annualAPR, int days){
         double effectiveAPR = Math.pow(((annualAPR/100)+1), days/365);
-        return Amount*effectiveAPR;
+        return amount*effectiveAPR;
     }
 
 }

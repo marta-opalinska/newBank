@@ -3,7 +3,7 @@ import java.time.LocalDate;
 
 public class Loan {
     int id;
-    int preloanId;
+    int preLoanId;
     Customer creditor;
     Customer debtor;
     double initialAmount;
@@ -11,7 +11,7 @@ public class Loan {
     LocalDate initialDate;
     LocalDate repaymentDate;
     double amountDue = repaymentAmount;
-    Status status = Status.Paying;
+    Status loanStatus = Status.Paying;
 
 
     public Loan(loanOffer offer, Customer debtor){
@@ -20,9 +20,12 @@ public class Loan {
         this.creditor = offer.creator;
         this.initialAmount = offer.amount;
         this.repaymentAmount = offer.repaymentAmount;
-        this.preloanId = offer.id;
+        this.preLoanId = offer.id;
         this.initialDate = LocalDate.now();
         this.repaymentDate = initialDate.plusDays(offer.daysToRepayment);
+        offer.changeStatus(status.Loaned);
+        //delete old offer from database and insert updated one
+        //add new loan to database
     }
 
     public Loan(loanRequest request, Customer creditor){
@@ -31,9 +34,12 @@ public class Loan {
         this.creditor = creditor;
         this.initialAmount = request.amount;
         this.repaymentAmount = request.repaymentAmount;
-        this.preloanId = request.id;
+        this.preLoanId = request.id;
         this.initialDate = LocalDate.now();
         this.repaymentDate = initialDate.plusDays(request.daysToRepayment);
+        request.changeStatus(status.Loaned);
+        //delete old request from database and insert updated one
+        //add new loan to database
     }
 
     public void depositLoanFromOffer(Customer creditor, Customer debtor){
@@ -58,7 +64,7 @@ public class Loan {
             creditor.addMoney("main", amount);
             amountDue = amountDue - amount;
             if(amountDue == 0){
-                status = Status.Paid;
+                loanStatus = Status.Paid;
             }
             return true;
         } else {
@@ -87,7 +93,7 @@ public class Loan {
 
 }
 
-enum Status{
+enum Status {
     Paying,
     Paid
 }
