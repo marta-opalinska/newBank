@@ -2,8 +2,8 @@ package newbank.server;
 
 public class loanRequest extends preLoan {
     //double accountThreshold = from constants? single place to check total account threshold and annual APR?
-    public loanRequest(Customer cust, double initialAmount, double annualAPR, int days) {
-        super(cust, initialAmount, annualAPR, days);
+    public loanRequest(Customer cust, double initialAmount, int days) {
+        super(cust, initialAmount, days);
 
     }
     //we need to add a check for borrowers that their total funds are within threshold needed(ie they can only borrow up to 0.2 of their total funds)
@@ -14,4 +14,9 @@ public class loanRequest extends preLoan {
                 return false;
             }
         }
+
+    public void buildLoan(Customer creditor){
+        Loan toAdd = new Loan(this, creditor);
+        this.changeStatus(status.Loaned);
+    }
 }

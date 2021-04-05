@@ -38,6 +38,7 @@ public abstract class preLoan {
 
 enum status {
     Loaned,
+    NeedsApproval,
     Open,
     Retracted,
 }
