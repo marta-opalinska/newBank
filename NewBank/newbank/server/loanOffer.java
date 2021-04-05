@@ -24,5 +24,5 @@ public class loanOffer extends preLoan {
         cust.getAccount("savings").withdraw(initialAmount);
     }
 
- 
+
 }

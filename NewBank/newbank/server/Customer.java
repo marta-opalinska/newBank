@@ -64,4 +64,12 @@ public class Customer {
 	public boolean isAccountAvailable(String source) {
 		return getAccount(source) == null? false: true;
 	}
+
+	public double getTotalFunds(){
+		double total = 0;
+		for(int i=0; i<accounts.size(); i++){
+			total = total + accounts.get(i).getBalance();
+		}
+		return total;
+	}
 }
