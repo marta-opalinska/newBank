@@ -86,7 +86,7 @@ public class CommandParser {
   }
 
   /**
-   * Function checking if the string is a valud parameter
+   * Function checking if the string is a valid parameter
    * @param arg string that might be a command parameter
    * @return
    */

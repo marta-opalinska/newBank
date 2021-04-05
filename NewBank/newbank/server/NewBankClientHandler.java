@@ -67,7 +67,9 @@ public class NewBankClientHandler extends Thread {
     }
       // if the user is authenticated then get requests from the user and process them
       out.printInfo("Log In Successful.");
-      out.printRequest("What do you want to do?");
+      out.printRequest("Please type in a command from the list...\n");
+      // Changed from "What do you want to do?" to providing a list of options for the user to type into the command line
+      out.printInfo("pay\nshowmyaccounts\nmoveaccounts\naddaccount\nlogout");
       // keep getting requests from the client and processing them
       requestsLoop(customer);
       return;
