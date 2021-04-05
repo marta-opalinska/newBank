@@ -8,10 +8,11 @@ public abstract class preLoan {
     double amount;
     double repaymentAmount;
     int daysToRepayment;
+    double annualAPR = Constants.ANNUALAPR;
 
     //annualAPR represents a percent APR, such as 5.5. this is then converted to the actual changes, such as
     //1.055, in the getrepaymentmethod
-    public preLoan(Customer cust, double initialAmount, double annualAPR, int days){
+    public preLoan(Customer cust, double initialAmount, int days){
         this.loanStatus = status.Open;
         this.creator = cust;
         this.amount = initialAmount;

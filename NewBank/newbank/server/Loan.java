@@ -68,8 +68,21 @@ public class Loan {
 
     public double getAmountDue(){ return amountDue;}
 
-    public boolean canPay(Customer cust, double amount){
-        
+    //checks for loan if overdue, adds late fee and postpones
+    //should check every day
+    public void ifOverdue(){
+        if(isLoanOverdue()){
+            repaymentAmount = repaymentAmount + Constants.LATE_FEE;
+            repaymentDate = repaymentDate.plusDays(Constants.LATE_DAYS);
+        }
+    }
+
+    public boolean isLoanOverdue() {
+        if(LocalDate.now().isAfter(repaymentDate)){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

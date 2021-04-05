@@ -41,4 +41,11 @@ public final class Constants {
   public static final String ADD_ACCOUNT_COMMAND = "addaccount";
 
   //moveaccounts -a 400 -d savings -s main
+
+  //annual APR, in percent, example set at 5.5
+  public static final double ANNUALAPR = 5.5;
+
+  //in case of overdue payment, this is the late fee, and time added to pay
+  public static final double LATE_FEE = 20;
+  public static final int LATE_DAYS = 7;
 }
