@@ -1,13 +1,17 @@
 package newbank.server;
 
 public abstract class preLoan {
+    //abstract class for loanoffers and loanrequests
     status loanStatus;
     Customer creator;
     double amount;
     double repaymentAmount;
     int daysToRepayment;
 
+    //annualAPR represents a percent APR, such as 5.5. this is then converted to the actual changes, such as
+    //1.055, in the getrepaymentmethod
     public preLoan(Customer cust, double initialAmount, double annualAPR, int days){
+        this.loanStatus = status.Open;
         this.creator = cust;
         this.amount = initialAmount;
         this.daysToRepayment = days;
@@ -29,8 +33,9 @@ public abstract class preLoan {
     }
 
 }
-enum status{
+
+enum status {
+    Loaned,
     Open,
     Retracted,
-    Loaned
 }
