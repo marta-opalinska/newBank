@@ -10,7 +10,9 @@ public class Loan {
     double repaymentAmount;
     LocalDate initialDate;
     LocalDate repaymentDate;
-    double amountPaid;
+    double amountDue = repaymentAmount;
+    Status status = Status.Paying;
+
 
     public Loan(loanOffer offer, Customer debtor){
         //this constructor builds the Loan if it comes from an offer
@@ -39,10 +41,40 @@ public class Loan {
         debtor.addMoney("savings", initialAmount);
     }
 
-    public void depositLoanFromRequest(Customer creditor, Customer debtor){
+    public boolean depositLoanFromRequest(Customer creditor, Customer debtor){
+        //this adds a check so the creditor has sufficient funds to lend out
+        if(creditor.areFundsSufficient("main", initialAmount)){
+            creditor.withdrawMoney("main", initialAmount);
+            debtor.addMoney("savings", initialAmount);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean payLoan(Customer debtor,Customer creditor, double amount){
+        if(debtor.areFundsSufficient("main", amount) && amount<=amountDue){
+            debtor.withdrawMoney("main", amount);
+            creditor.addMoney("main", amount);
+            amountDue = amountDue - amount;
+            if(amountDue == 0){
+                status = Status.Paid;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public double getAmountDue(){ return amountDue;}
+
+    public boolean canPay(Customer cust, double amount){
         
     }
 
+}
 
-
+enum Status{
+    Paying,
+    Paid
 }
