@@ -13,7 +13,7 @@ public class loanOffer extends preLoan {
     }
 
     public boolean canLoan(Customer cust, double initialAmount){
-        if(cust.getAccount("savings").getBalance()>initialAmount){
+        if(cust.getAccount("main").getBalance()>initialAmount){
             return true;
         } else {
             return false;
@@ -21,7 +21,7 @@ public class loanOffer extends preLoan {
     }
 
     public void withDrawForLoan(Customer cust, double initialAmount){
-        cust.getAccount("savings").withdraw(initialAmount);
+        cust.getAccount("main").withdraw(initialAmount);
     }
 
 

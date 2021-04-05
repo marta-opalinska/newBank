@@ -2,6 +2,7 @@ package newbank.server;
 
 public abstract class preLoan {
     //abstract class for loanoffers and loanrequests
+    int id;
     status loanStatus;
     Customer creator;
     double amount;

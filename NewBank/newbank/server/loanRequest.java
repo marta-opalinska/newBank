@@ -1,6 +1,7 @@
 package newbank.server;
 
-public class loanRequest extends preLoan{
+public class loanRequest extends preLoan {
+    //double accountThreshold = from constants? single place to check total account threshold and annual APR?
     public loanRequest(Customer cust, double initialAmount, double annualAPR, int days) {
         super(cust, initialAmount, annualAPR, days);
 
