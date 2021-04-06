@@ -50,18 +50,31 @@ public class NewBankClientHandler extends Thread {
 
   public void run() {
     Customer customer = logIn();
-    while (customer == null) {
-      out.printError("Log In Failed");
-      customer = logIn();
+    boolean exit = false;
+    int i = 0;
+    while (i < 4) {
+      while (customer == null) {
+        out.printError("Log In Failed");
+        customer = logIn();
+      }
+      if (i == 3){
+        out.printInfo("Maximum number of log-in attempts have been made. \n Please contact customer services on...");
+        exit = true;
+        // not sure how to perform the exit of the program, have used the terminology of 'exit' to represent the intent
+        // insert customer services number in this text line above
+      }
+      i++;
     }
-    // if the user is authenticated then get requests from the user and process them
-    out.printInfo("Log In Successful.");
-    out.printRequest("What do you want to do?");
-    // keep getting requests from the client and processing them
-    requestsLoop(customer);
-    return;
-  }
+      // if the user is authenticated then get requests from the user and process them
+      out.printInfo("Log In Successful.");
+      out.printRequest("Please type in a command from the list...\n");
+      // Changed from "What do you want to do?" to providing a list of options for the user to type into the command line
+      out.printInfo("pay\nshowmyaccounts\nmoveaccounts\naddaccount\nlogout");
+      // keep getting requests from the client and processing them
+      requestsLoop(customer);
+      return;
 
+  }
   private void requestsLoop(Customer customer) {
     boolean exit = false;
     try {
