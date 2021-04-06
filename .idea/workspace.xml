@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9ec15da6-b93e-4696-a92b-502abfc01183" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="2631aff2-bd5f-4331-a9fd-91fc4e95a347" name="Default Changelist" comment="Start of implemeting update database. Should be able to update balances for all accounts." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,6 +19,77 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/NewBank" />
+    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="xslt.associations" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/NewBank/newbank" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="git pull origin PAY?MOVE" />
+      <command value="git pull origin PAY/MOVE" />
+      <command value="git push " />
+      <command value="git pull origin TP_Test1 " />
+      <command value="git stash" />
+      <command value="git pull origin master" />
+      <command value="git pull origin Customer-DataBase" />
+      <command value="git pull origin main" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.NewBankServer">
+    <configuration name="ExampleClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="newbank.client.ExampleClient" />
+      <module name="newBank" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="newbank.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NewBankServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="newbank.server.NewBankServer" />
+      <module name="newBank" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="newbank.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in newBank" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="newBank" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.NewBankServer" />
+      <item itemvalue="Application.ExampleClient" />
+      <item itemvalue="JUnit.All in newBank" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ExampleClient" />
+        <item itemvalue="Application.NewBankServer" />
+        <item itemvalue="JUnit.All in newBank" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -44,5 +113,54 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added move method&#10;//need defensive coding" />
+    <MESSAGE value="Added database parser plus database and begun to implement funcitonality." />
+    <MESSAGE value="You can now login using the database (XML) accounts. Add account not yet incorporated so must be done manually." />
+    <MESSAGE value="Password checking now works. Password is stored in XML as SHA256 hashed value so you must store it as this." />
+    <MESSAGE value="Customers fully initialised using database (added balance). Password checking also specific to user accounts." />
+    <MESSAGE value="Fixed some issues created on merge" />
+    <MESSAGE value="Updated XML Schema. To add account types add XML block (see main/savings) and then name to list." />
+    <MESSAGE value="Start of implemeting update database. Should be able to update balances for all accounts." />
+    <MESSAGE value="Began work on database interface. Agreed today to change project design so as not to load whole database of customers. Therefore holting work on this function as it's purpose will change." />
+    <MESSAGE value="Changed database interface significantly. Added getCustomer, customerExists classes. Also changed customer object so it is initalised with a username and account ID. Now when you login your session is initialised (sort of) as a customer with ID and assocaited accounts." />
+    <MESSAGE value="Changed database interface significantly. Added getCustomer, customerExists classes. Also changed customer object so it is initalised with a username and account ID. Now when you login your session is initialised (sort of) as a customer with ID and assocaited accounts.&#10;&#10;Made further updates, customerID class should no longer be required. Many of the new bank methods need rewriting (as discussed). However then interfaces to the database should now exist. The write methods still need doing, but read is done." />
+    <MESSAGE value="Further database implementation. Write to database should now work" />
+    <MESSAGE value="Write to database now updating XML file properly. Currently only doing balance, but method can trivially be applied to all fields." />
+    <option name="LAST_COMMIT_MESSAGE" value="Write to database now updating XML file properly. Currently only doing balance, but method can trivially be applied to all fields." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/NewBank/newbank/newbank/server/NewBank.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/NewBank/newbank/server/databaseInterface.java</url>
+          <line>181</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand>
+      <path>
+        <item name="newBank" type="b2602c69:ProjectViewProjectNode" />
+        <item name="newBank" type="462c0819:PsiDirectoryNode" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/newBank$ExampleClient.ic" NAME="ExampleClient Coverage Results" MODIFIED="1615701230890" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>newbank.client.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/newBank$NewBankServer.ic" NAME="NewBankServer Coverage Results" MODIFIED="1615701226751" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>newbank.client.*</FILTER>
+    </SUITE>
   </component>
 </project>

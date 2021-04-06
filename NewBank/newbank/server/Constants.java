@@ -41,4 +41,13 @@ public final class Constants {
   public static final String ADD_ACCOUNT_COMMAND = "addaccount";
 
   //moveaccounts -a 400 -d savings -s main
+
+  //annual APR, in percent, for example 5.5% is 5.5
+  public static final double ANNUALAPR = 5.5;
+
+  //account threshold, since a loan can't make up more than a certain amount of the total funds a customer has, same rules as above
+  public static final double ACCOUNT_THRESHOLD = 20;
+  //in case of overdue payment, this is the late fee, and time added to pay
+  public static final double LATE_FEE = 20;
+  public static final int LATE_DAYS = 7;
 }
