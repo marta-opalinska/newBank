@@ -1,20 +1,17 @@
 package newbank.server;
 
 public class loanOffer extends preLoan {
-    public loanOffer(String username, double initialAmount, double annualAPR, int days) {
+    public loanOffer(String username, double initialAmount, int days) {
         super(username, initialAmount, days);
-        Customer cust = databaseInterface.getCustomer(username);
-        if(canLoan(cust, initialAmount)){
-            loanStatus = status.Open;
-            withDrawForLoan(cust, initialAmount);
+        if(canLoan()) {
+            //
         } else {
-            //if there is not enough money in the savings account, the offer is automatically retracted and not open
-            loanStatus = status.Retracted;
+            this.changeStatus(status.Retracted);
         }
     }
 
-    public boolean canLoan(Customer cust, double initialAmount){
-        if(cust.getAccount("main").getBalance()>initialAmount){
+    public boolean canLoan(){
+        if(creator.getAccount("main").getBalance()>amount){
             return true;
         } else {
             return false;

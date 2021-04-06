@@ -36,6 +36,15 @@ public abstract class preLoan {
         return amount*effectiveAPR;
     }
 
+    public void setID(int i){
+        id = i;
+    }
+
+    public String getIDAsString(){
+        String idString = String.valueOf(id);
+        return idString;
+    }
+
 }
 
 enum status {

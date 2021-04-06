@@ -1,7 +1,7 @@
 package newbank.server;
 import java.time.LocalDate;
 
-public class Loan {
+public class Loan extends Account{
     int id;
     int preLoanId;
     Customer creditor;
@@ -15,6 +15,7 @@ public class Loan {
 
 
     public Loan(loanOffer offer, Customer debtor){
+        super(offer.getIDAsString(), offer.amount);
         //this constructor builds the Loan if it comes from an offer
         this.debtor = debtor;
         this.creditor = offer.creator;
@@ -29,6 +30,8 @@ public class Loan {
     }
 
     public Loan(loanRequest request, Customer creditor){
+        //
+        super(request.getIDAsString(), request.amount);
         //this constructor builds the Loan if it comes from an offer
         this.debtor = request.creator;
         this.creditor = creditor;
@@ -60,6 +63,7 @@ public class Loan {
 
     public boolean payLoan(Customer debtor,Customer creditor, double amount){
         if(debtor.areFundsSufficient("main", amount) && amount<=amountDue){
+            ifOverdue();
             debtor.withdrawMoney("main", amount);
             creditor.addMoney("main", amount);
             amountDue = amountDue - amount;
