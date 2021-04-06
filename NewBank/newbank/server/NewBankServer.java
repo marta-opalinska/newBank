@@ -38,5 +38,6 @@ public class NewBankServer extends Thread{
 	public static void main(String[] args) throws IOException {
 		// starts a new NewBankServer thread on a specified port number
 		new NewBankServer(14002).start();
+		System.out.println("WELCOME TO NEWBANK");
 	}
 }
