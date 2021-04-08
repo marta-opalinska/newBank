@@ -11,7 +11,7 @@ public class Loan extends Account{
     LocalDate initialDate;
     LocalDate repaymentDate;
     double amountDue = repaymentAmount;
-    Status loanStatus = Status.Paying;
+    status loanStatus = status.Paying;
 
 
     public Loan(loanOffer offer, Customer debtor){
@@ -27,6 +27,7 @@ public class Loan extends Account{
         offer.changeStatus(status.Loaned);
         //delete old offer from database and insert updated one
         //add new loan to database
+        depositLoanFromOffer(creditor, debtor);
     }
 
     public Loan(loanRequest request, Customer creditor){
@@ -40,9 +41,11 @@ public class Loan extends Account{
         this.preLoanId = request.id;
         this.initialDate = LocalDate.now();
         this.repaymentDate = initialDate.plusDays(request.daysToRepayment);
-        request.changeStatus(status.Loaned);
+        //this request change status has to be sent back to mfinterface
+        //request.changeStatus(status.Loaned);
         //delete old request from database and insert updated one
         //add new loan to database
+        depositLoanFromRequest(creditor, debtor);
     }
 
     public void depositLoanFromOffer(Customer creditor, Customer debtor){
@@ -68,7 +71,7 @@ public class Loan extends Account{
             creditor.addMoney("main", amount);
             amountDue = amountDue - amount;
             if(amountDue == 0){
-                loanStatus = Status.Paid;
+                loanStatus = status.Paid;
             }
             return true;
         } else {
@@ -95,9 +98,19 @@ public class Loan extends Account{
         }
     }
 
+    public String getLoanString(){
+        String toReturn = "Creditor:" + creditor.getName() + "  Debtor:" + debtor.getName() + "  AmountDue:" + getAmountDue() + "  DateDue:" + repaymentDate.toString();
+        return toReturn;
+    }
+
 }
 
-enum Status {
+enum status {
+    //paying and paid is for loans
     Paying,
-    Paid
+    Paid,
+    //loaned, open, and retracted is for preloans
+    Loaned,
+    Open,
+    Retracted,
 }

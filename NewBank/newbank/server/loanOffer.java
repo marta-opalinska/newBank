@@ -1,8 +1,8 @@
 package newbank.server;
 
 public class loanOffer extends preLoan {
-    public loanOffer(String username, double initialAmount, int days) {
-        super(username, initialAmount, days);
+    public loanOffer(Customer customer, double initialAmount, int days) {
+        super(customer, initialAmount, days);
         if(canLoan()) {
             //
         } else {
@@ -22,9 +22,15 @@ public class loanOffer extends preLoan {
         cust.getAccount("main").withdraw(initialAmount);
     }
 
-    public void buildLoan(Customer debtor){
+    public Loan buildLoan(Customer debtor){
         Loan toAdd = new Loan(this, debtor);
         //needs method to add Loan to database of loans
         this.changeStatus(status.Loaned);
+        return toAdd;
+    }
+
+    public String makeString(){
+        String toReturn = creator_username+ "   inAmount:" + String.valueOf(amount) + "     repayAmount:" + String.valueOf(repaymentAmount) + "   days:" + String.valueOf(daysToRepayment);
+        return toReturn;
     }
 }

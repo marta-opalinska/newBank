@@ -13,10 +13,10 @@ public abstract class preLoan {
 
     //annualAPR represents a percent APR, such as 5.5. this is then converted to the actual changes, such as
     //1.055, in the getrepaymentmethod
-    public preLoan(String cust, double initialAmount, int days){
-        this.loanStatus = status.Open;
-        this.creator_username = cust;
-        this.creator = databaseInterface.getCustomer(cust);
+    public preLoan(Customer customer, double initialAmount, int days){
+        //this.loanStatus = status.Open;
+        this.creator_username = customer.getName();
+        this.creator = customer;
         this.amount = initialAmount;
         this.daysToRepayment = days;
         this.repaymentAmount = getRepaymentAmount(initialAmount, annualAPR, days);
@@ -45,11 +45,16 @@ public abstract class preLoan {
         return idString;
     }
 
-}
+    public int getId(){
+        return id;
+    }
 
-enum status {
-    Loaned,
-    NeedsApproval,
-    Open,
-    Retracted,
+    public Loan buildLoan(Customer customer){
+        return null;
+    }
+
+    public status getLoanStatus(){
+        return loanStatus;
+    }
+
 }

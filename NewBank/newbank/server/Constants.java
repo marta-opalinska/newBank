@@ -39,11 +39,13 @@ public final class Constants {
   public static final String SHOW_ACCOUNTS_COMMAND = "showmyaccounts";
   public static final String MOVE_ACCOUNTS_COMMAND = "moveaccounts";
   public static final String ADD_ACCOUNT_COMMAND = "addaccount";
+  public static final String REQUEST_LOAN_COMMAND = "requestloan";
+  public static final String OFFER_LOAN_COMMAND = "offerloan";
 
   //moveaccounts -a 400 -d savings -s main
 
   //annual APR, in percent, for example 5.5% is 5.5
-  public static final double ANNUALAPR = 5.5;
+  public static final double ANNUALAPR = 100;
 
   //account threshold, since a loan can't make up more than a certain amount of the total funds a customer has, same rules as above
   public static final double ACCOUNT_THRESHOLD = 20;

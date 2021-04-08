@@ -4,8 +4,8 @@ public class loanRequest extends preLoan {
     String details;
 
     //double accountThreshold = from constants? single place to check total account threshold and annual APR?
-    public loanRequest(String username, double initialAmount, int days) {
-        super(username, initialAmount, days);
+    public loanRequest(Customer customer, double initialAmount, int days) {
+        super(customer, initialAmount, days);
     }
     //we need to add a check for borrowers that their total funds are within threshold needed(ie they can only borrow up to 0.2 of their total funds)
     public boolean canBorrow(){
@@ -16,10 +16,17 @@ public class loanRequest extends preLoan {
             }
         }
 
-    public void buildLoan(Customer creditor){
+
+    public Loan buildLoan(Customer creditor){
         Loan toAdd = new Loan(this, creditor);
         //needs method to add Loan to database of loans
         this.changeStatus(status.Loaned);
+        return toAdd;
         //needs method to update database of preloans so it becomes loaned
+    }
+
+    public String makeString(){
+        String toReturn = getIDAsString() + " from  " + creator_username+ "   inAmount:" + String.valueOf(amount) + "     repayAmount:" + String.valueOf(repaymentAmount) + "   days:" + String.valueOf(daysToRepayment);
+        return toReturn;
     }
 }

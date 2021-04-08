@@ -14,6 +14,8 @@ public class NewBankClientHandler extends Thread {
   private BufferedReader in;
   private CustomerPrint out;
 
+  //test arraylist
+  private mfInterface mfinterface = new mfInterface();
 
   public NewBankClientHandler(Socket s) throws IOException {
     bank = NewBank.getBank();
@@ -136,6 +138,21 @@ public class NewBankClientHandler extends Thread {
           return moveBetweenAccounts(customer, request.get("s"), request.get("d"), Double.parseDouble(request.get("a")), optionals);
         case Constants.ADD_ACCOUNT_COMMAND:
           return addAccount(customer, request.get("n"));
+        case Constants.REQUEST_LOAN_COMMAND:
+          //optionals.put("t", request.get("t"));
+          return addRequest(customer, Double.parseDouble(request.get("a")), Integer.parseInt(request.get("d")));
+          //test requests
+        //TODO update these with relevant constants
+        case "getrequests":
+          out.printInfo(mfinterface.getRequestsAsString());
+          return true;
+        case "offerloan":
+          return addOffer(customer, Double.parseDouble(request.get("a")), Integer.parseInt(request.get("d")));
+        case "matchloan":
+          return match(customer, Integer.parseInt(request.get("i")));
+        case "getloans":
+          out.printInfo(mfinterface.getLoansAsString());
+          return true;
         default:
           out.printWarning("Command name not found.");
           return false;
@@ -262,7 +279,7 @@ public class NewBankClientHandler extends Thread {
       return false;
     }
     if (customer.isAccountAvailable(name)) {
-      out.printError("The account with that name already exist.");
+      out.printError("The account with that name already exists.");
       return false;
     }
     out.printRequest("Would you like to confirm creating new account named " + name + "? y/n");
@@ -298,4 +315,44 @@ public class NewBankClientHandler extends Thread {
     }
     return false;
   }
+
+  /**
+   * Function that creates a loan request.
+   *
+   * @param customer    customer that runs the command
+   * @param amount      amount to transfer
+   * @param days        number of days for loan
+   * @param //optionals  optional parameters
+   * @return if the operation was successful
+   */
+  private boolean addRequest(Customer customer, double amount, int days){
+    try {
+      mfinterface.createRequest(customer, amount, days);
+      return true;
+    } catch (Exception e){
+      return false;
+    }
+  }
+
+  private boolean addOffer(Customer customer, double amount, int days){
+    try {
+      mfinterface.createOffer(customer, amount, days);
+      return true;
+    } catch (Exception e){
+      return false;
+    }
+  }
+
+  private boolean match(Customer customer, int id){
+    try {
+      preLoan temp = mfinterface.getPreLoan(id);
+      mfinterface.loans.add(temp.buildLoan(customer));
+      //have to remove preloan from system
+      return true;
+    } catch (Exception e){
+      return false;
+    }
+  }
+
+
 }
