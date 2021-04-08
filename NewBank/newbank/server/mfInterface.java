@@ -3,9 +3,11 @@ package newbank.server;
 import java.util.ArrayList;
 
 public class mfInterface {
-    public ArrayList<loanRequest> requests = new ArrayList<loanRequest>();
-    public ArrayList<loanOffer> offers = new ArrayList<loanOffer>();
-    public ArrayList<Loan> loans = new ArrayList<Loan>();
+
+    //these are a temporary measure to test the marketplace
+    private ArrayList<loanRequest> requests = new ArrayList<loanRequest>();
+    private ArrayList<loanOffer> offers = new ArrayList<loanOffer>();
+    private ArrayList<Loan> loans = new ArrayList<Loan>();
 
 
     public void createOffer(Customer customer, double amount, int days){
@@ -16,7 +18,7 @@ public class mfInterface {
         addOffer(offer);
     }
 
-    public void addOffer(loanOffer offer){
+    private void addOffer(loanOffer offer){
         offers.add(offer);
     }
 
@@ -28,18 +30,20 @@ public class mfInterface {
         addRequest(request);
     }
 
-    public void addRequest(loanRequest request){
+    private void addRequest(loanRequest request){
         //method to add request to same database as offers
+        //TODO
         requests.add(request);
     }
 
-    public ArrayList<loanOffer> getOffersAsArrayList(){
+    private ArrayList<loanOffer> getOffersAsArrayList(){
         //method to return all loanoffers in db
+        //TODO
         return offers;
     }
 
     public String getOpenOffersAsString(){
-        String toReturn = "";
+        String toReturn = "--------------";
         ArrayList<loanOffer> build = getOpenOffers();
         for(int i=0; i<build.size();i++){
             toReturn = toReturn + "\n" + build.get(i).makeString();
@@ -48,7 +52,7 @@ public class mfInterface {
         return toReturn;
     }
 
-    public ArrayList<loanOffer> getOpenOffers(){
+    private ArrayList<loanOffer> getOpenOffers(){
         //method to return requests if their status is open
         ArrayList<loanOffer> offers_cleaned = new ArrayList<loanOffer>();
         for(int i = 0; i<offers.size(); i++){
@@ -69,13 +73,13 @@ public class mfInterface {
         return toReturn;
     }
 
-    public ArrayList<loanRequest> getRequestsAsArrayList(){
+    private ArrayList<loanRequest> getRequestsAsArrayList(){
         //method to return all loanrequests in db
         //TODO from db
         return requests;
     }
 
-    public ArrayList<loanRequest> getOpenRequests(){
+    private ArrayList<loanRequest> getOpenRequests(){
         //method to return requests if their status is open
         ArrayList<loanRequest> requestsArray = getRequestsAsArrayList();
         ArrayList<loanRequest> requests_cleaned = new ArrayList<loanRequest>();
@@ -87,18 +91,18 @@ public class mfInterface {
         return requests_cleaned;
     }
 
-    public ArrayList<Loan> getLoansAsArrayList(){
+    private ArrayList<Loan> getLoansAsArrayList(){
         //TODO from db
         return loans;
     }
 
     //TODO: these bad boys
-    public loanOffer getOffer(int id){
+    private loanOffer getOffer(int id){
         //method to return offer based on id
         return null;
     }
 
-    public int getNextPreLoanID(){
+    private int getNextPreLoanID(){
         int i = getOffersAsArrayList().size() + getRequestsAsArrayList().size();
         return i+1;
     }
@@ -138,9 +142,13 @@ public class mfInterface {
         }
     }
 
-    public int getNextLoanID(){
+    private int getNextLoanID(){
         ArrayList<Loan> loansArray = getLoansAsArrayList();
         return loansArray.size()+1;
+    }
+
+    public void createLoan(preLoan preloan){
+        //
     }
 
     public void addLoan(Loan loan){
