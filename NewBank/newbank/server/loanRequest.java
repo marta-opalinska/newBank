@@ -21,17 +21,23 @@ public class loanRequest extends preLoan {
             }
         }
 
-
-    public Loan buildLoan(Customer creditor, int id){
+    @Override
+    Loan buildLoan(Customer creditor) {
         Loan toAdd = new Loan(this, creditor, id);
         //needs method to add Loan to database of loans
-        this.changeStatus(status.Loaned);
-        return toAdd;
+        if(toAdd.loanStatus.equals(status.Open)) {
+            this.changeStatus(status.Loaned);
+            return toAdd;
+        } else {
+            return null;
+        }
         //needs method to update database of preloans so it becomes loaned
     }
 
     public String makeString(){
-        String toReturn = getIDAsString() + " from  " + creator_username+ "   inAmount:" + String.valueOf(amount) + "     repayAmount:" + String.valueOf(repaymentAmount) + "   days:" + String.valueOf(daysToRepayment);
+        double repayRounded= Math.round(repaymentAmount*100);
+        repayRounded = repayRounded/100;
+        String toReturn = loanStatus+ getIDAsString() + " from  " + creator_username+ "   inAmount:" + amount + "     repayAmount:" + repayRounded + "   days:" + String.valueOf(daysToRepayment);
         return toReturn;
     }
 }

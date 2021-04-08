@@ -10,17 +10,18 @@ public class Loan extends Account{
     double repaymentAmount;
     LocalDate initialDate;
     LocalDate repaymentDate;
-    double amountDue = repaymentAmount;
+    double amountDue;
     status loanStatus = status.Paying;
 
 
     public Loan(loanOffer offer, Customer debtor, int id){
-        super(offer.getIDAsString(), offer.amount);
+        super(offer.getIDAsString(), 0);
         //this constructor builds the Loan if it comes from an offer
         this.debtor = debtor;
         this.creditor = offer.creator;
         this.initialAmount = offer.amount;
-        this.repaymentAmount = offer.repaymentAmount;
+        this.repaymentAmount = Math.ceil(offer.repaymentAmount);
+        this.amountDue = repaymentAmount;
         this.preLoanId = offer.id;
         this.initialDate = LocalDate.now();
         this.repaymentDate = initialDate.plusDays(offer.daysToRepayment);
@@ -28,18 +29,19 @@ public class Loan extends Account{
         this.id = id;
         //delete old offer from database and insert updated one
         //add new loan to database
-        depositLoanFromOffer(creditor, debtor);
+        depositLoanFromOffer(this.creditor, this.debtor);
     }
 
     public Loan(loanRequest request, Customer creditor, int id){
         //
-        super(request.getIDAsString(), request.amount);
+        super(request.getIDAsString(), 0);
         this.id = id;
         //this constructor builds the Loan if it comes from an offer
         this.debtor = request.creator;
         this.creditor = creditor;
         this.initialAmount = request.amount;
-        this.repaymentAmount = request.repaymentAmount;
+        this.repaymentAmount = Math.ceil(request.repaymentAmount);
+        this.amountDue = repaymentAmount;
         this.preLoanId = request.id;
         this.initialDate = LocalDate.now();
         this.repaymentDate = initialDate.plusDays(request.daysToRepayment);
@@ -47,7 +49,12 @@ public class Loan extends Account{
         //request.changeStatus(status.Loaned);
         //delete old request from database and insert updated one
         //add new loan to database
-        depositLoanFromRequest(creditor, debtor);
+        if(depositLoanFromRequest(this.creditor, this.debtor)){
+            this.loanStatus=status.Open;
+        } else {
+            this.loanStatus=status.Retracted;
+        }
+        ;
     }
 
     public void depositLoanFromOffer(Customer creditor, Customer debtor){
@@ -66,7 +73,7 @@ public class Loan extends Account{
         }
     }
 
-    public boolean payLoan(Customer debtor,Customer creditor, double amount){
+    public boolean payLoan(double amount){
         if(debtor.areFundsSufficient("main", amount) && amount<=amountDue){
             ifOverdue();
             debtor.withdrawMoney("main", amount);
@@ -101,7 +108,12 @@ public class Loan extends Account{
     }
 
     public String getLoanString(){
-        String toReturn = "Creditor:" + creditor.getName() + "  Debtor:" + debtor.getName() + "  AmountDue:" + getAmountDue() + "  DateDue:" + repaymentDate.toString();
+        String toReturn = "ID:" + id + "  Creditor:" + creditor.getName() + "  Debtor:" + debtor.getName() + "  AmountDue:" + amountDue + "  DateDue:" + repaymentDate.toString();
+        return toReturn;
+    }
+
+    public String stringLoan(){
+        String toReturn = creditor.getName()+debtor.getName()+amountDue+"  " + initialAmount+"  " +amountDue+"  " +repaymentDate.toString()+loanStatus.toString();
         return toReturn;
     }
 

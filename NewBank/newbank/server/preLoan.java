@@ -1,5 +1,5 @@
 package newbank.server;
-
+import java.lang.Math;
 public abstract class preLoan {
     //abstract class for loanoffers and loanrequests
     int id;
@@ -9,7 +9,6 @@ public abstract class preLoan {
     double amount;
     double repaymentAmount;
     int daysToRepayment;
-    double annualAPR = Constants.ANNUALAPR;
 
     //annualAPR represents a percent APR, such as 5.5. this is then converted to the actual changes, such as
     //1.055, in the getrepaymentmethod
@@ -19,7 +18,7 @@ public abstract class preLoan {
         this.creator = customer;
         this.amount = initialAmount;
         this.daysToRepayment = days;
-        this.repaymentAmount = getRepaymentAmount(initialAmount, annualAPR, days);
+        this.repaymentAmount = getRepaymentAmount(initialAmount, days);
     }
 
     public boolean changeStatus(status newStatus){
@@ -31,9 +30,13 @@ public abstract class preLoan {
         }
     }
 
-    public double getRepaymentAmount(double amount, double annualAPR, int days){
-        double effectiveAPR = Math.pow(((annualAPR/100)+1), days/365);
-        return amount*effectiveAPR;
+    public static double getRepaymentAmount(double amount, int days){
+        double annualAPR = Constants.ANNUALAPR;
+        double days_double = days;
+        double years = days_double/365;
+        double apr_modified = (annualAPR*0.01)+1;
+        double repayment = amount * Math.pow(apr_modified, years);
+        return repayment;
     }
 
     public void setID(int i){
@@ -49,9 +52,7 @@ public abstract class preLoan {
         return id;
     }
 
-    public Loan buildLoan(Customer customer){
-        return null;
-    }
+    abstract Loan buildLoan(Customer acceptor);
 
     public status getLoanStatus(){
         return loanStatus;

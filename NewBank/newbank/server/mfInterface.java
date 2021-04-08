@@ -10,8 +10,9 @@ public class mfInterface {
 
     public void createOffer(Customer customer, double amount, int days){
         loanOffer offer = new loanOffer(customer, amount, days);
-        offer.changeStatus(status.Open);
+        //offer.changeStatus(status.Open);
         offer.setID(getNextPreLoanID());
+        offer.repaymentAmount = preLoan.getRepaymentAmount(amount, days);
         addOffer(offer);
     }
 
@@ -21,7 +22,9 @@ public class mfInterface {
 
     public void createRequest(Customer customer, double amount, int days){
         loanRequest request = new loanRequest(customer, amount, days);
+        //request.changeStatus(status.Open);
         request.setID(getNextPreLoanID());
+        request.repaymentAmount = preLoan.getRepaymentAmount(amount, days);
         addRequest(request);
     }
 
@@ -57,32 +60,35 @@ public class mfInterface {
     }
 
     public String getOpenRequestsAsString(){
-        String toReturn = "";
+        String toReturn = "--------------";
         ArrayList<loanRequest> build = getOpenRequests();
         for(int i=0; i<build.size();i++){
             toReturn = toReturn + "\n" + build.get(i).makeString();
         }
-        toReturn = toReturn + "\n\n--------------";
+        toReturn = toReturn + "\n--------------";
         return toReturn;
     }
 
-    public ArrayList<loanRequest> getRequestAsArrayList(){
+    public ArrayList<loanRequest> getRequestsAsArrayList(){
         //method to return all loanrequests in db
+        //TODO from db
         return requests;
     }
 
     public ArrayList<loanRequest> getOpenRequests(){
         //method to return requests if their status is open
+        ArrayList<loanRequest> requestsArray = getRequestsAsArrayList();
         ArrayList<loanRequest> requests_cleaned = new ArrayList<loanRequest>();
-        for(int i = 0; requests.size()>i; i++){
-            if(requests.get(i).getLoanStatus().equals(status.Open)){
-                requests_cleaned.add(requests.get(i));
+        for(int i = 0; requestsArray.size()>i; i++){
+            if(requestsArray.get(i).getLoanStatus().equals(status.Open)){
+                requests_cleaned.add(requestsArray.get(i));
             }
         }
         return requests_cleaned;
     }
 
     public ArrayList<Loan> getLoansAsArrayList(){
+        //TODO from db
         return loans;
     }
 
@@ -92,27 +98,15 @@ public class mfInterface {
         return null;
     }
 
-    public loanRequest getRequest(int id){
-        //method to return request based on id
-        return null;
-    }
-
-    public void requestToLoan(int id, String username){
-        loanRequest request = getRequest(id);
-        Customer creditor = databaseInterface.getCustomer(username);
-        Loan temp = new Loan(request, creditor, id);
-        loans.add(temp);
-    }
-
     public int getNextPreLoanID(){
-        int i = getOffersAsArrayList().size() + getRequestAsArrayList().size();
+        int i = getOffersAsArrayList().size() + getRequestsAsArrayList().size();
         return i+1;
     }
 
     public preLoan getPreLoan(int id){
         ArrayList<preLoan> preLoans = new ArrayList<>();
         preLoans.addAll(getOffersAsArrayList());
-        preLoans.addAll(getRequestAsArrayList());
+        preLoans.addAll(getRequestsAsArrayList());
         for(int i = 0; i<preLoans.size(); i++){
             if(preLoans.get(i).getId()==id){
                 return preLoans.get(i);
@@ -121,20 +115,55 @@ public class mfInterface {
         return null;
     }
 
-    public String getLoansAsString(){
+    public String getLoansAsString(Customer customer){
+        ArrayList<Loan> loansArray = getLoansAsArrayList();
         try{
-            String toDisp = "----------";
-            for(int i = 0; i<loans.size(); i++){
-                toDisp = toDisp + "\n" + loans.get(i).getLoanString() + "\n-----------";
+            String toDisp = "----------\nLoans you are owed:\n";
+            for(int i = 0; i<loansArray.size(); i++){
+                if(customer.equals(loansArray.get(i).creditor)) {
+                    toDisp = toDisp + "\n" + loansArray.get(i).getLoanString() + "\n-----------";
+                }
+            }
+            toDisp = toDisp + "\n----------\nLoans you owe:\n";
+            for(int i = 0; i<loansArray.size(); i++){
+                if(customer.equals(loansArray.get(i).debtor)) {
+                    toDisp = toDisp + "\n" + loansArray.get(i).getLoanString() + "\n-----------";
+                }
             }
             return toDisp;
         }
         catch (Exception e){
+            e.printStackTrace();
             return "none";
         }
     }
 
     public int getNextLoanID(){
-        return loans.size()+1;
+        ArrayList<Loan> loansArray = getLoansAsArrayList();
+        return loansArray.size()+1;
+    }
+
+    public void addLoan(Loan loan){
+        //TODO method to add loan to db
+        loans.add(loan);
+    }
+
+    public boolean payLoan(double amount, int loanID){
+        ArrayList<Loan> loansArray = getLoansAsArrayList();
+        for(Loan l:loansArray){
+            if(l.id==loanID){
+                l.payLoan(amount);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String printLoans(){
+        String toReturn = "";
+        for(Loan l: loans){
+            toReturn = toReturn+l.stringLoan() + "\n";
+        }
+        return toReturn;
     }
 }

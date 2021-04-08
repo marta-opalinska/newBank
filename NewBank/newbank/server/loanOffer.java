@@ -23,15 +23,20 @@ public class loanOffer extends preLoan {
         cust.getAccount("main").withdraw(initialAmount);
     }
 
-    public Loan buildLoan(Customer debtor, int id){
+    @Override
+    Loan buildLoan(Customer debtor) {
         Loan toAdd = new Loan(this, debtor, id);
         //needs method to add Loan to database of loans
-        this.changeStatus(status.Loaned);
-        return toAdd;
+        if(toAdd.loanStatus.equals(status.Open)) {
+            this.changeStatus(status.Loaned);
+            return toAdd;
+        } else {
+            return null;
+        }
     }
 
     public String makeString(){
-        String toReturn = creator_username+ "   inAmount:" + String.valueOf(amount) + "     repayAmount:" + String.valueOf(repaymentAmount) + "   days:" + String.valueOf(daysToRepayment);
+        String toReturn = loanStatus+ getIDAsString() + creator_username+ "   inAmount:" + String.valueOf(amount) + "     repayAmount:" + String.valueOf(repaymentAmount) + "   days:" + String.valueOf(daysToRepayment);
         return toReturn;
     }
 }

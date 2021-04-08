@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class NewBankClientHandler extends Thread {
 
@@ -140,7 +141,6 @@ public class NewBankClientHandler extends Thread {
           return addAccount(customer, request.get("n"));
         case Constants.REQUEST_LOAN_COMMAND:
           return addRequest(customer, Double.parseDouble(request.get("a")), Integer.parseInt(request.get("d")));
-        //TODO update these with relevant constants
         case Constants.GET_OPEN_REQUESTS:
           out.printInfo(mfinterface.getOpenRequestsAsString());
           return true;
@@ -152,8 +152,10 @@ public class NewBankClientHandler extends Thread {
         case Constants.CHOOSE_PRELOAN:
           return match(customer, Integer.parseInt(request.get("i")));
         case Constants.GET_LOANS:
-          out.printInfo(mfinterface.getLoansAsString());
+          out.printInfo(mfinterface.getLoansAsString(customer));
           return true;
+        case Constants.PAY_LOAN:
+          return payLoan(customer, Double.parseDouble(request.get("a")), Integer.parseInt(request.get("i")));
         default:
           out.printWarning("Command name not found.");
           return false;
@@ -347,13 +349,23 @@ public class NewBankClientHandler extends Thread {
   private boolean match(Customer customer, int id){
     try {
       preLoan temp = mfinterface.getPreLoan(id);
-      mfinterface.loans.add(temp.buildLoan(customer));
+      Loan toBuild = temp.buildLoan(customer);
+      if(!Objects.isNull(toBuild)) {
+        mfinterface.getPreLoan(id).changeStatus(status.Loaned);
+        mfinterface.addLoan(temp.buildLoan(customer));
+        return true;
+      } else { return false; }
       //have to remove preloan from system
-      return true;
     } catch (Exception e){
+      out.printError("Could not create loan");
       return false;
     }
   }
 
-
+  private boolean payLoan(Customer customer, double amount, int id){
+    if(mfinterface.payLoan(amount, id)){
+      return true;
+    }
+    return false;
+  }
 }

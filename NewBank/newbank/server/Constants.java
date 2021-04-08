@@ -51,7 +51,7 @@ public final class Constants {
   public static final String GET_LOANS = "getloans";
 
   //annual APR, in percent, for example 5.5% is 5.5
-  public static final double ANNUALAPR = 100;
+  public static final double ANNUALAPR = 50;
 
   //account threshold, since a loan can't make up more than a certain amount of the total funds a customer has, same rules as above
   public static final double ACCOUNT_THRESHOLD = 100;
