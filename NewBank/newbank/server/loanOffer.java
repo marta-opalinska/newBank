@@ -4,7 +4,8 @@ public class loanOffer extends preLoan {
     public loanOffer(Customer customer, double initialAmount, int days) {
         super(customer, initialAmount, days);
         if(canLoan()) {
-            //
+            withDrawForLoan(customer, initialAmount);
+            this.changeStatus(status.Open);
         } else {
             this.changeStatus(status.Retracted);
         }
@@ -22,8 +23,8 @@ public class loanOffer extends preLoan {
         cust.getAccount("main").withdraw(initialAmount);
     }
 
-    public Loan buildLoan(Customer debtor){
-        Loan toAdd = new Loan(this, debtor);
+    public Loan buildLoan(Customer debtor, int id){
+        Loan toAdd = new Loan(this, debtor, id);
         //needs method to add Loan to database of loans
         this.changeStatus(status.Loaned);
         return toAdd;

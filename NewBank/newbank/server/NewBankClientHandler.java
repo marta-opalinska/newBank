@@ -139,18 +139,19 @@ public class NewBankClientHandler extends Thread {
         case Constants.ADD_ACCOUNT_COMMAND:
           return addAccount(customer, request.get("n"));
         case Constants.REQUEST_LOAN_COMMAND:
-          //optionals.put("t", request.get("t"));
           return addRequest(customer, Double.parseDouble(request.get("a")), Integer.parseInt(request.get("d")));
-          //test requests
         //TODO update these with relevant constants
-        case "getrequests":
-          out.printInfo(mfinterface.getRequestsAsString());
+        case Constants.GET_OPEN_REQUESTS:
+          out.printInfo(mfinterface.getOpenRequestsAsString());
           return true;
-        case "offerloan":
+        case Constants.GET_OPEN_OFFERS:
+          out.printInfo(mfinterface.getOpenOffersAsString());
+          return true;
+        case Constants.OFFER_LOAN_COMMAND:
           return addOffer(customer, Double.parseDouble(request.get("a")), Integer.parseInt(request.get("d")));
-        case "matchloan":
+        case Constants.CHOOSE_PRELOAN:
           return match(customer, Integer.parseInt(request.get("i")));
-        case "getloans":
+        case Constants.GET_LOANS:
           out.printInfo(mfinterface.getLoansAsString());
           return true;
         default:

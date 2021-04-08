@@ -14,7 +14,7 @@ public class Loan extends Account{
     status loanStatus = status.Paying;
 
 
-    public Loan(loanOffer offer, Customer debtor){
+    public Loan(loanOffer offer, Customer debtor, int id){
         super(offer.getIDAsString(), offer.amount);
         //this constructor builds the Loan if it comes from an offer
         this.debtor = debtor;
@@ -25,14 +25,16 @@ public class Loan extends Account{
         this.initialDate = LocalDate.now();
         this.repaymentDate = initialDate.plusDays(offer.daysToRepayment);
         offer.changeStatus(status.Loaned);
+        this.id = id;
         //delete old offer from database and insert updated one
         //add new loan to database
         depositLoanFromOffer(creditor, debtor);
     }
 
-    public Loan(loanRequest request, Customer creditor){
+    public Loan(loanRequest request, Customer creditor, int id){
         //
         super(request.getIDAsString(), request.amount);
+        this.id = id;
         //this constructor builds the Loan if it comes from an offer
         this.debtor = request.creator;
         this.creditor = creditor;

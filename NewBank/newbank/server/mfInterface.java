@@ -6,30 +6,23 @@ public class mfInterface {
     public ArrayList<loanRequest> requests = new ArrayList<loanRequest>();
     public ArrayList<loanOffer> offers = new ArrayList<loanOffer>();
     public ArrayList<Loan> loans = new ArrayList<Loan>();
-    public boolean createOffer(Customer customer, double amount, int days){
+
+
+    public void createOffer(Customer customer, double amount, int days){
         loanOffer offer = new loanOffer(customer, amount, days);
+        offer.changeStatus(status.Open);
         offer.setID(getNextPreLoanID());
-        if(offer.canLoan()){
-            addOffer(offer);
-            return true;
-        } else {
-            return false;
-        }
+        addOffer(offer);
     }
 
     public void addOffer(loanOffer offer){
-        //method to add offer to database
+        offers.add(offer);
     }
 
-    public boolean createRequest(Customer customer, double amount, int days){
+    public void createRequest(Customer customer, double amount, int days){
         loanRequest request = new loanRequest(customer, amount, days);
         request.setID(getNextPreLoanID());
-        if(request.canBorrow()){
-            addRequest(request);
-            return true;
-        } else {
-            return false;
-        }
+        addRequest(request);
     }
 
     public void addRequest(loanRequest request){
@@ -42,34 +35,51 @@ public class mfInterface {
         return offers;
     }
 
-    public ArrayList<loanOffer> getOpenOffers(){
-        //method to return offers if their status is open
-        return new ArrayList<loanOffer>();
+    public String getOpenOffersAsString(){
+        String toReturn = "";
+        ArrayList<loanOffer> build = getOpenOffers();
+        for(int i=0; i<build.size();i++){
+            toReturn = toReturn + "\n" + build.get(i).makeString();
+        }
+        toReturn = toReturn + "\n\n--------------";
+        return toReturn;
     }
 
-    public String getRequestsAsString(){
-        String toReturn = "";
-        ArrayList<loanRequest> build = getRequestAsArrayList();
-        for(int i=0; i<build.size();i++){
-            toReturn = toReturn + "\n \n" + build.get(i).makeString();
+    public ArrayList<loanOffer> getOpenOffers(){
+        //method to return requests if their status is open
+        ArrayList<loanOffer> offers_cleaned = new ArrayList<loanOffer>();
+        for(int i = 0; i<offers.size(); i++){
+            if(offers.get(i).getLoanStatus().equals(status.Open)){
+                offers_cleaned.add(offers.get(i));
+            }
         }
+        return offers_cleaned;
+    }
+
+    public String getOpenRequestsAsString(){
+        String toReturn = "";
+        ArrayList<loanRequest> build = getOpenRequests();
+        for(int i=0; i<build.size();i++){
+            toReturn = toReturn + "\n" + build.get(i).makeString();
+        }
+        toReturn = toReturn + "\n\n--------------";
         return toReturn;
     }
 
     public ArrayList<loanRequest> getRequestAsArrayList(){
         //method to return all loanrequests in db
-        ArrayList<loanRequest> requests_cleaned = new ArrayList<loanRequest>();
-        for(int i = 0; requests.size()>i; i++){
-            if(requests.get(i).getLoanStatus()!=status.Loaned){
-                requests_cleaned.add(requests.get(i));
-            }
-        }
-        return requests_cleaned;
+        return requests;
     }
 
     public ArrayList<loanRequest> getOpenRequests(){
         //method to return requests if their status is open
-        return new ArrayList<loanRequest>();
+        ArrayList<loanRequest> requests_cleaned = new ArrayList<loanRequest>();
+        for(int i = 0; requests.size()>i; i++){
+            if(requests.get(i).getLoanStatus().equals(status.Open)){
+                requests_cleaned.add(requests.get(i));
+            }
+        }
+        return requests_cleaned;
     }
 
     public ArrayList<Loan> getLoansAsArrayList(){
@@ -90,7 +100,7 @@ public class mfInterface {
     public void requestToLoan(int id, String username){
         loanRequest request = getRequest(id);
         Customer creditor = databaseInterface.getCustomer(username);
-        Loan temp = new Loan(request, creditor);
+        Loan temp = new Loan(request, creditor, id);
         loans.add(temp);
     }
 
@@ -122,5 +132,9 @@ public class mfInterface {
         catch (Exception e){
             return "none";
         }
+    }
+
+    public int getNextLoanID(){
+        return loans.size()+1;
     }
 }
