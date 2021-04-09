@@ -39,6 +39,6 @@ public final class Constants {
   public static final String SHOW_ACCOUNTS_COMMAND = "showmyaccounts";
   public static final String MOVE_ACCOUNTS_COMMAND = "moveaccounts";
   public static final String ADD_ACCOUNT_COMMAND = "addaccount";
-
+  public static final String CLOSE_ACCOUNT_COMMAND = "closeaccount";
   //moveaccounts -a 400 -d savings -s main
 }

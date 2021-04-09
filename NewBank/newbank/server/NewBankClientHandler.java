@@ -122,6 +122,9 @@ public class NewBankClientHandler extends Thread {
           return moveBetweenAccounts(customer, request.get("s"), request.get("d"), Double.parseDouble(request.get("a")), optionals);
         case Constants.ADD_ACCOUNT_COMMAND:
           return addAccount(customer, request.get("n"));
+        case Constants.CLOSE_ACCOUNT_COMMAND:
+          // unsure what to enter here
+          return closeAccount();
         default:
           out.printWarning("Command name not found.");
           return false;
@@ -257,6 +260,31 @@ public class NewBankClientHandler extends Thread {
       customer.addAccount(accountToAdd);
     }
     bank.updateDatabase(customer);
+    return true;
+  }
+
+  private Boolean closeAccount(Customer customer, Account account, String accountName) {
+    if (accountName == null) {
+      out.printError("Incorrect parameter.");
+      return false;
+    }
+    if (!customer.isAccountAvailable(accountName)) {
+      out.printError("Please enter a valid account name: ");
+      return false;
+    }
+    if (account.getBalance() > 0) {
+      out.printError("Account still has funds. Please empty account before closing.");
+      return false;
+    }
+ /*
+  out.printRequest("Would you like to confirm removing account named " + accountName + "? y/n");
+  if (confirm()) {
+    Account accountToRemove = new Account(accountName, 0);
+    customer.removeAccount(accountToRemove);
+  }
+  bank.updateDatabase(customer);
+  return true;
+  */
     return true;
   }
 
