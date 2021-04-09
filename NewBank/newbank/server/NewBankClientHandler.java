@@ -142,10 +142,10 @@ public class NewBankClientHandler extends Thread {
         case Constants.REQUEST_LOAN_COMMAND:
           return addRequest(customer, Double.parseDouble(request.get("a")), Integer.parseInt(request.get("d")));
         case Constants.GET_OPEN_REQUESTS:
-          out.printInfo(mfinterface.getOpenRequestsAsString());
+          out.printInfo(getRequests(optionals));
           return true;
         case Constants.GET_OPEN_OFFERS:
-          out.printInfo(mfinterface.getOpenOffersAsString());
+          out.printInfo(getOffers(optionals));
           return true;
         case Constants.OFFER_LOAN_COMMAND:
           return addOffer(customer, Double.parseDouble(request.get("a")), Integer.parseInt(request.get("d")));
@@ -367,5 +367,52 @@ public class NewBankClientHandler extends Thread {
       return true;
     }
     return false;
+  }
+
+  //x is min days, y is max days, p is min amount, and q is max amount
+  private String getOffers(HashMap<String, String> optionals){
+    int days[] = new int[2];
+    double amount[] = new double[2];
+    try {
+      if (optionals.get("x") != null) {
+        days[0] = Integer.parseInt(optionals.get("x"));
+      }
+      if (optionals.get("y") != null) {
+        days[1] = Integer.parseInt(optionals.get("y"));
+      }
+      if (optionals.get("p") != null) {
+        amount[0] = Double.parseDouble(optionals.get("p"));
+      }
+      if (optionals.get("q") != null) {
+        amount[1] = Double.parseDouble(optionals.get("q"));
+      }
+    } catch (Exception e){
+      out.printError("Invalid Parameters");
+      return "";
+    }
+    return mfinterface.getOpenOffersAsString(days, amount);
+  }
+
+  private String getRequests(HashMap<String, String> optionals){
+    int days[] = new int[2];
+    double amount[] = new double[2];
+    try {
+      if (optionals.get("x") != null) {
+        days[0] = Integer.parseInt(optionals.get("x"));
+      }
+      if (optionals.get("y") != null) {
+        days[1] = Integer.parseInt(optionals.get("y"));
+      }
+      if (optionals.get("p") != null) {
+        amount[0] = Double.parseDouble(optionals.get("p"));
+      }
+      if (optionals.get("q") != null) {
+        amount[1] = Double.parseDouble(optionals.get("q"));
+      }
+    } catch (Exception e){
+      out.printError("Invalid Parameters");
+      return "";
+    }
+    return mfinterface.getOpenRequestsAsString(days, amount);
   }
 }

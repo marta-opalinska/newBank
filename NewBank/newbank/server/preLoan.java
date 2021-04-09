@@ -58,4 +58,11 @@ public abstract class preLoan {
         return loanStatus;
     }
 
+    public String makeString(){
+        double repayRounded= Math.round(repaymentAmount*100);
+        repayRounded = repayRounded/100;
+        String toReturn = loanStatus+" | " + getIDAsString() + " from  " + creator_username+ "   inAmount:" + amount + "     repayAmount:" + repayRounded + "   days:" + String.valueOf(daysToRepayment);
+        return toReturn;
+    }
+
 }

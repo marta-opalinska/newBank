@@ -1,6 +1,7 @@
 package newbank.server;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class mfInterface {
 
@@ -42,9 +43,9 @@ public class mfInterface {
         return offers;
     }
 
-    public String getOpenOffersAsString(){
+    public String getOpenOffersAsString(int days[], double amount[]){
         String toReturn = "--------------";
-        ArrayList<loanOffer> build = getOpenOffers();
+        ArrayList<preLoan> build = filterOorE(getOpenOffers(), days, amount);
         for(int i=0; i<build.size();i++){
             toReturn = toReturn + "\n" + build.get(i).makeString();
         }
@@ -52,9 +53,44 @@ public class mfInterface {
         return toReturn;
     }
 
-    private ArrayList<loanOffer> getOpenOffers(){
+    //filters by days and amount, where days[0] or amount[0] is min and [1] is max
+    private ArrayList<preLoan> filterOorE(ArrayList<preLoan> preLoans, int days[], double amount[]){
+        int minDays;
+        if(Objects.isNull(days[0])){
+            minDays=0;
+        } else {
+            minDays = days[0];
+        }
+        int maxDays;
+        if(Objects.isNull(days[1])){
+            maxDays=2147483600;
+        } else {
+            maxDays = days[1];
+        }
+        double minAmount;
+        if(Objects.isNull(amount[0])){
+            minAmount=0;
+        } else {
+            minAmount = amount[0];
+        }
+        double maxAmount;
+        if(Objects.isNull(amount[1])){
+            maxAmount = 2147483600;
+        } else {
+            maxAmount = amount[1];
+        }
+        ArrayList<preLoan> filteredReturn = new ArrayList<preLoan>();
+        for(int i = 0;i<preLoans.size();i++){
+            if(preLoans.get(i).amount<maxAmount && preLoans.get(i).amount>minAmount && preLoans.get(i).daysToRepayment>minDays && preLoans.get(i).daysToRepayment<maxDays){
+                filteredReturn.add(preLoans.get(i));
+            }
+        }
+        return filteredReturn;
+    }
+
+    private ArrayList<preLoan> getOpenOffers(){
         //method to return requests if their status is open
-        ArrayList<loanOffer> offers_cleaned = new ArrayList<loanOffer>();
+        ArrayList<preLoan> offers_cleaned = new ArrayList<preLoan>();
         for(int i = 0; i<offers.size(); i++){
             if(offers.get(i).getLoanStatus().equals(status.Open)){
                 offers_cleaned.add(offers.get(i));
@@ -63,9 +99,9 @@ public class mfInterface {
         return offers_cleaned;
     }
 
-    public String getOpenRequestsAsString(){
+    public String getOpenRequestsAsString(int days[], double amount[]){
         String toReturn = "--------------";
-        ArrayList<loanRequest> build = getOpenRequests();
+        ArrayList<preLoan> build = filterOorE(getOpenRequests(), days, amount);
         for(int i=0; i<build.size();i++){
             toReturn = toReturn + "\n" + build.get(i).makeString();
         }
@@ -79,10 +115,10 @@ public class mfInterface {
         return requests;
     }
 
-    private ArrayList<loanRequest> getOpenRequests(){
+    private ArrayList<preLoan> getOpenRequests(){
         //method to return requests if their status is open
         ArrayList<loanRequest> requestsArray = getRequestsAsArrayList();
-        ArrayList<loanRequest> requests_cleaned = new ArrayList<loanRequest>();
+        ArrayList<preLoan> requests_cleaned = new ArrayList<preLoan>();
         for(int i = 0; requestsArray.size()>i; i++){
             if(requestsArray.get(i).getLoanStatus().equals(status.Open)){
                 requests_cleaned.add(requestsArray.get(i));
