@@ -142,9 +142,11 @@ public class NewBankClientHandler extends Thread {
         case Constants.REQUEST_LOAN_COMMAND:
           return addRequest(customer, Double.parseDouble(request.get("a")), Integer.parseInt(request.get("d")));
         case Constants.GET_OPEN_REQUESTS:
+          optionals = getFilter(request);
           out.printInfo(getRequests(optionals));
           return true;
         case Constants.GET_OPEN_OFFERS:
+          optionals = getFilter(request);
           out.printInfo(getOffers(optionals));
           return true;
         case Constants.OFFER_LOAN_COMMAND:
@@ -369,6 +371,15 @@ public class NewBankClientHandler extends Thread {
     return false;
   }
 
+  private HashMap<String, String> getFilter(HashMap<String, String> request){
+    HashMap<String, String> filter = new HashMap<>();
+    filter.put("x", request.get("x"));
+    filter.put("y", request.get("y"));
+    filter.put("p", request.get("p"));
+    filter.put("q", request.get("q"));
+    return filter;
+  }
+
   //x is min days, y is max days, p is min amount, and q is max amount
   private String getOffers(HashMap<String, String> optionals){
     int days[] = new int[2];
@@ -399,19 +410,27 @@ public class NewBankClientHandler extends Thread {
     try {
       if (optionals.get("x") != null) {
         days[0] = Integer.parseInt(optionals.get("x"));
+      } else {
+        days[0] = -1;
       }
       if (optionals.get("y") != null) {
         days[1] = Integer.parseInt(optionals.get("y"));
+      } else {
+        days[1] = -1;
       }
       if (optionals.get("p") != null) {
         amount[0] = Double.parseDouble(optionals.get("p"));
+      } else {
+        amount[0] = -1;
       }
       if (optionals.get("q") != null) {
         amount[1] = Double.parseDouble(optionals.get("q"));
+      } else {
+        amount[1] = -1;
       }
     } catch (Exception e){
       out.printError("Invalid Parameters");
-      return "";
+      return null;
     }
     return mfinterface.getOpenRequestsAsString(days, amount);
   }

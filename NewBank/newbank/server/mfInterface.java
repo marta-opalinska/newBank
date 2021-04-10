@@ -56,25 +56,25 @@ public class mfInterface {
     //filters by days and amount, where days[0] or amount[0] is min and [1] is max
     private ArrayList<preLoan> filterOorE(ArrayList<preLoan> preLoans, int days[], double amount[]){
         int minDays;
-        if(Objects.isNull(days[0])){
+        if(days[0]==-1){
             minDays=0;
         } else {
             minDays = days[0];
         }
         int maxDays;
-        if(Objects.isNull(days[1])){
+        if(days[1]==-1){
             maxDays=2147483600;
         } else {
             maxDays = days[1];
         }
         double minAmount;
-        if(Objects.isNull(amount[0])){
+        if(amount[0]==-1){
             minAmount=0;
         } else {
             minAmount = amount[0];
         }
         double maxAmount;
-        if(Objects.isNull(amount[1])){
+        if(amount[1]==-1){
             maxAmount = 2147483600;
         } else {
             maxAmount = amount[1];
