@@ -13,13 +13,13 @@ public class Loan extends Account{
     double amountDue;
     status loanStatus = status.Paying;
 
-    public Loan(int id, Customer creditor, Customer debtor, double initialAmount, double repaymentAmount, LocalDate initialDate, LocalDate repaymentDate, status loanStatus){
+    public Loan(int id, Customer creditor, Customer debtor, double initialAmount, double amountDue, LocalDate initialDate, LocalDate repaymentDate, status loanStatus){
         super(String.valueOf(id), 0);
         this.debtor = debtor;
         this.creditor = creditor;
         this.id = id;
         this.initialAmount = initialAmount;
-        this.repaymentAmount = repaymentAmount;
+        this.amountDue = amountDue;
         this.initialDate = initialDate;
         this.repaymentDate = repaymentDate;
         this.loanStatus = loanStatus;

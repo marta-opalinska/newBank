@@ -149,108 +149,123 @@ public class mfInterface {
     }
 
     private ArrayList<Loan> getLoansAsArrayList(){
-        ArrayList<Loan> loans = new ArrayList<>();
+        ArrayList<Loan> loansList = new ArrayList<>();
         try {
-            for (int i = 0; i<getNextPreLoanID()+4; i++){
-                System.out.println(mf_dbinterface.loadLoan(i).stringLoan());
-                loans.add(mf_dbinterface.loadLoan(i));
-            }
-        } catch(NullPointerException | ParserConfigurationException | IOException | SAXException | ParseException e){
-            return loans;
-        }
-        return loans;
-    }
-
-    //TODO: these bad boys
-    private loanOffer getOffer(int id){
-        //method to return offer based on id
-        return null;
-    }
-
-    private int getNextPreLoanID(){
-        int i = getOffersAsArrayList().size() + getRequestsAsArrayList().size();
-        return i+1;
-    }
-
-    public preLoan getPreLoan(int id){
-        ArrayList<preLoan> preLoans = new ArrayList<>();
-        preLoans.addAll(getOffersAsArrayList());
-        preLoans.addAll(getRequestsAsArrayList());
-        for(int i = 0; i<preLoans.size(); i++){
-            if(preLoans.get(i).getId()==id){
-                return preLoans.get(i);
-            }
-        }
-        return null;
-    }
-
-    public String getLoansAsString(Customer customer){
-        ArrayList<Loan> loansArray = getLoansAsArrayList();
-        try{
-            String toDisp = "----------\nLoans you are owed:\n";
-            for(int i = 0; i<loansArray.size(); i++){
-                if(customer.equals(loansArray.get(i).creditor)) {
-                    toDisp = toDisp + "\n" + loansArray.get(i).getLoanString() + "\n-----------";
+            for (int i = 0; i < getNextLoanID() + 1; i++) {
+                try {
+                    Loan addLoan = mf_dbinterface.loadLoan(i);
+                    if(addLoan != null && addLoan.amountDue!=0){
+                        System.out.println(addLoan.stringLoan());
+                        loansList.add(addLoan);
+                    }
+                } catch (ParseException e) {
                 }
             }
-            toDisp = toDisp + "\n----------\nLoans you owe:\n";
-            for(int i = 0; i<loansArray.size(); i++){
-                if(customer.equals(loansArray.get(i).debtor)) {
-                    toDisp = toDisp + "\n" + loansArray.get(i).getLoanString() + "\n-----------";
+        } catch (ParserConfigurationException | SAXException | IOException e){
+            return loansList;
+        }
+        return loansList;
+    }
+
+        //TODO: these bad boys
+        private loanOffer getOffer ( int id){
+            //method to return offer based on id
+            return null;
+        }
+
+        private int getNextPreLoanID () {
+            int i = getOffersAsArrayList().size() + getRequestsAsArrayList().size();
+            return i + 1;
+        }
+
+        public preLoan getPreLoan ( int id){
+            ArrayList<preLoan> preLoans = new ArrayList<>();
+            preLoans.addAll(getOffersAsArrayList());
+            preLoans.addAll(getRequestsAsArrayList());
+            for (int i = 0; i < preLoans.size(); i++) {
+                if (preLoans.get(i).getId() == id) {
+                    return preLoans.get(i);
                 }
             }
-            return toDisp;
+            return null;
         }
-        catch (Exception e){
-            e.printStackTrace();
-            return "none";
-        }
-    }
-    //TODO update this?
-    public static int getNextLoanID(){
-        Random rand = new Random();
-        int loans = rand.nextInt();
-        return loans;
-        //return loansArray.size()+1;
-    }
 
-    public void createLoan(preLoan preloan){
-        //
-    }
-
-    public void addLoan(Loan loan){
-        //TODO method to add loan to db
-        try {
-            mf_dbinterface.addLoan(loan);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public boolean payLoan(double amount, int loanID){
-        ArrayList<Loan> loansArray = getLoansAsArrayList();
-        for(Loan l:loansArray){
-            if(l.id==loanID){
-                l.payLoan(amount);
-                return true;
+        public String getLoansAsString (Customer customer){
+        ArrayList<Loan> loansArray;
+            loansArray = getLoansAsArrayList();
+            try {
+                String toDisp = "----------\nLoans you are owed:\n";
+                for (int i = 0; i < loansArray.size(); i++) {
+                    if (customer.getName().equals(loansArray.get(i).creditor.getName())) {
+                        toDisp = toDisp + "\n" + loansArray.get(i).getLoanString() + "\n-----------";
+                    }
+                }
+                toDisp = toDisp + "\n----------\nLoans you owe:\n";
+                for (int i = 0; i < loansArray.size(); i++) {
+                    if (customer.getName().equals(loansArray.get(i).debtor.getName())) {
+                        toDisp = toDisp + "\n" + loansArray.get(i).getLoanString() + "\n-----------";
+                    }
+                }
+                return toDisp;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "none";
             }
         }
-        return false;
-    }
 
-    public String printLoans(){
-        String toReturn = "";
-        for(Loan l: loans){
-            toReturn = toReturn+l.stringLoan() + "\n";
+        //TODO update this?
+        public static int getNextLoanID(){
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            try {
+                DocumentBuilder dbuilder = factory.newDocumentBuilder();
+                Document xml = dbuilder.parse("mf_db.xml");
+                Element root = xml.getDocumentElement();
+                NodeList loanList = root.getElementsByTagName("loan");
+                int id = loanList.getLength() + 1;
+                //System.out.println(id);
+                return id;
+            } catch (ParserConfigurationException | SAXException | IOException e) {
+                e.printStackTrace();
+                return -1;
+            }
         }
-        return toReturn;
+
+        public void createLoan (preLoan preloan){
+            //
+        }
+
+        public void addLoan (Loan loan){
+            //TODO method to add loan to db
+            try {
+                mf_dbinterface.addLoan(loan);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public boolean payLoan ( double amount, int loanID) {
+            ArrayList<Loan> loansArray = getLoansAsArrayList();
+            for (Loan l : loansArray) {
+                if (l.id == loanID) {
+                    l.payLoan(amount);
+                    try {
+                        mf_dbinterface.updateLoan(l);
+                    } catch (ParserConfigurationException | SAXException | TransformerConfigurationException | IOException e){
+                        e.printStackTrace();
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
-}
 
 
 
 interface mf_dbinterface{
     SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
     public static void addToDoc(Node n) throws SAXException, IOException, ParserConfigurationException, TransformerConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dbuilder = factory.newDocumentBuilder();
@@ -274,15 +289,49 @@ interface mf_dbinterface{
         }
     }
 
+    public static void removeFromDoc(Node n, String type) throws SAXException, IOException, ParserConfigurationException, TransformerConfigurationException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dbuilder = factory.newDocumentBuilder();
+        Document xml;
+        try {
+            File dbFile = new File("mf_db.xml");
+            xml = dbuilder.parse(dbFile);
+        } catch (Exception e){
+            xml = dbuilder.parse("mf_db.xml");
+        }
+        NodeList nList = xml.getElementsByTagName(type);
+        Element nElement = (Element)n;
+        int nId = Integer.parseInt(nElement.getAttribute("id"));
+        for(int i = 0; i<nList.getLength(); i++){
+            Element node = (Element) nList.item(i);
+            int nodeId = Integer.parseInt(node.getAttribute("id"));
+            if(nodeId==nId){
+                node.getParentNode().removeChild(node);
+                break;
+            }
+        }
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(xml);
+        StreamResult result = new StreamResult(new File("mf_db.xml"));
+        try {
+            transformer.transform(source, result);
+        } catch (TransformerException e){
+            e.printStackTrace();
+        }
+    }
+
     public static Loan loadLoan(int id) throws ParserConfigurationException, IOException, SAXException, ParseException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dbuilder = factory.newDocumentBuilder();
         Document xml = dbuilder.parse("mf_db.xml");
         NodeList nlist = xml.getElementsByTagName("loan");
+        //System.out.println("NLIST:" + nlist.getLength());
         for(int i = 0; i<nlist.getLength();i++){
             Node nNode = nlist.item(i);
             Element node = (Element) nNode;
-            if(Integer.parseInt(node.getAttribute("id"))==id){
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+            if(Integer.parseInt(node.getAttribute("id"))==id) {
                 String user_creditor = node.getElementsByTagName("creditor").item(0).getTextContent();
                 Customer creditor = databaseInterface.getCustomer(user_creditor);
                 String user_debtor = node.getElementsByTagName("debtor").item(0).getTextContent();
@@ -295,8 +344,9 @@ interface mf_dbinterface{
                 LocalDate repayment_date = dateformat.parse(due_date).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 status loan_status = status.valueOf(node.getAttribute("status"));
                 Loan toReturn = new Loan(id, creditor, debtor, initialAmount, amount_due, initial_date, repayment_date, loan_status);
-                System.out.println(toReturn.stringLoan());
+                System.out.println("INSIDEXML:" + toReturn.stringLoan());
                 return toReturn;
+            }
             }
         }
         return null;
@@ -307,7 +357,7 @@ interface mf_dbinterface{
         DocumentBuilder dbuilder = factory.newDocumentBuilder();
         Document doc = dbuilder.newDocument();
         Element elem = doc.createElement("loan");
-        elem.setAttribute("id", String.valueOf(mfInterface.getNextLoanID()));
+        elem.setAttribute("id", String.valueOf(loanToAdd.id));
         elem.setAttribute("status", String.valueOf(loanToAdd.loanStatus));
         elem.appendChild(createElement(doc, "debtor", loanToAdd.debtor.getName()));
         elem.appendChild(createElement(doc, "creditor", loanToAdd.creditor.getName()));
@@ -326,31 +376,100 @@ interface mf_dbinterface{
         addToDoc(elem);
     }
 
-    public default void updateLoan(Loan loan, int id){
-        //
+    public static void updateLoan(Loan updatedLoan) throws ParserConfigurationException, IOException, SAXException, TransformerConfigurationException {
+        int id = updatedLoan.id;
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dbuilder = factory.newDocumentBuilder();
+        Document xml = dbuilder.parse("mf_db.xml");
+        NodeList nlist = xml.getElementsByTagName("loan");
+        int tries = nlist.getLength();
+        try {
+            for (int i = 0; i < tries; i++) {
+                Element loan = (Element) nlist.item(i);
+                int loanId = Integer.parseInt(loan.getAttribute("id"));
+                if (loanId == id) {
+                    removeFromDoc(loan, "loan");
+                    addLoan(updatedLoan);
+                }
+            }
+        } catch (Exception e){
+            //
+        }
     }
 
-    public default loanOffer loadOffer(int id){
+    public default loanOffer loadOffer(int id) throws ParserConfigurationException, IOException, SAXException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dbuilder = factory.newDocumentBuilder();
+        Document xml = dbuilder.parse("mf_db.xml");
+        NodeList nlist = xml.getElementsByTagName("offer");
+        for (int i = 0; i < nlist.getLength(); i++) {
+            for (int i = 0; i < nlist.getLength(); i++) {
+                Node nNode = nlist.item(i);
+                Element node = (Element) nNode;
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    if (Integer.parseInt(node.getAttribute("id")) == id) {
+                        String temp = node.getElementsByTagName("creator").item(0).getTextContent();
+                        Customer creator = databaseInterface.getCustomer(temp);
+                        temp = node.getElementsByTagName("initial_amount").item(0).getTextContent();
+                        double initialAmount = Double.parseDouble(temp);
+                        temp = node.getElementsByTagName("days").item(0).getTextContent();
+                        int days = Integer.parseInt(temp);
+                        temp = node.getElementsByTagName("amount_due").item(0).getTextContent();
+                        double repaymentAmount = Double.parseDouble(temp);
+                        loanOffer offer = new loanOffer(creator, initialAmount, days);
+                        offer.repaymentAmount = Double.parseDouble(node.getElementsByTagName("amount_due").item(0).getTextContent());
+                        offer.changeStatus(status.valueOf(node.getAttribute("status")));
+                        return offer;
+                    }
+                }
+            }
+        }
         return null;
     }
 
-    public default void addOffer(loanOffer offer){
-        //
+    public default void addOffer(loanOffer offer) throws ParserConfigurationException, SAXException, IOException, TransformerConfigurationException {
+        addToDoc(createPreLoanElement(offer, "offer"));
     }
 
     public default void updateOffer(loanOffer offer, int id){
         //
     }
 
-    public default loanRequest loadRequest(int id){
+    public default loanRequest loadRequest(int id) throws ParserConfigurationException, IOException, SAXException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dbuilder = factory.newDocumentBuilder();
+        Document xml = dbuilder.parse("mf_db.xml");
+        NodeList nlist = xml.getElementsByTagName("request");
+        for (int i = 0; i < nlist.getLength(); i++) {
+            for (int i = 0; i < nlist.getLength(); i++) {
+                Node nNode = nlist.item(i);
+                Element node = (Element) nNode;
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    if (Integer.parseInt(node.getAttribute("id")) == id) {
+                        String temp = node.getElementsByTagName("creator").item(0).getTextContent();
+                        Customer creator = databaseInterface.getCustomer(temp);
+                        temp = node.getElementsByTagName("initial_amount").item(0).getTextContent();
+                        double initialAmount = Double.parseDouble(temp);
+                        temp = node.getElementsByTagName("days").item(0).getTextContent();
+                        int days = Integer.parseInt(temp);
+                        temp = node.getElementsByTagName("amount_due").item(0).getTextContent();
+                        double repaymentAmount = Double.parseDouble(temp);
+                        loanRequest request = new loanRequest(creator, initialAmount, days);
+                        request.repaymentAmount = Double.parseDouble(node.getElementsByTagName("amount_due").item(0).getTextContent());
+                        request.changeStatus(status.valueOf(node.getAttribute("status")));
+                        return request;
+                    }
+                }
+            }
+        }
         return null;
     }
 
-    public default void addRequest(loanRequest request){
-        //
+    public default void addRequest(loanRequest request) throws ParserConfigurationException, SAXException, IOException, TransformerConfigurationException {
+        addToDoc(createPreLoanElement(request, "request"));
     }
 
-    public default void updateRequest(loanOffer offer, int id){
+    public default void updateRequest(loanRequest request, int id){
         //
     }
 
@@ -358,5 +477,19 @@ interface mf_dbinterface{
         Element node = doc.createElement(name);
         node.appendChild(doc.createTextNode(value));
         return node;
+    }
+
+    public static Element createPreLoanElement(preLoan preloan, String type) throws ParserConfigurationException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dbuilder = factory.newDocumentBuilder();
+        Document doc = dbuilder.newDocument();
+        Element elem = doc.createElement(type);
+        elem.setAttribute("id", String.valueOf(preloan.id));
+        elem.setAttribute("status", String.valueOf(preloan.getLoanStatus()));
+        elem.appendChild(createElement(doc, "creator", preloan.creator_username));
+        elem.appendChild(createElement(doc, "initial_amount", String.valueOf(preloan.amount)));
+        elem.appendChild(createElement(doc, "amount_due", String.valueOf(preloan.repaymentAmount)));
+        elem.appendChild(createElement(doc, "days", String.valueOf(preloan.daysToRepayment)));
+        return elem;
     }
 }
