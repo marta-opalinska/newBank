@@ -13,6 +13,17 @@ public class Loan extends Account{
     double amountDue;
     status loanStatus = status.Paying;
 
+    public Loan(int id, Customer creditor, Customer debtor, double initialAmount, double repaymentAmount, LocalDate initialDate, LocalDate repaymentDate, status loanStatus){
+        super(String.valueOf(id), 0);
+        this.debtor = debtor;
+        this.creditor = creditor;
+        this.id = id;
+        this.initialAmount = initialAmount;
+        this.repaymentAmount = repaymentAmount;
+        this.initialDate = initialDate;
+        this.repaymentDate = repaymentDate;
+        this.loanStatus = loanStatus;
+    }
 
     public Loan(loanOffer offer, Customer debtor, int id){
         super(offer.getIDAsString(), 0);
