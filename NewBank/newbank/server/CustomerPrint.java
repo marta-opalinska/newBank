@@ -77,12 +77,12 @@ public class CustomerPrint {
         printCommandHelpArguments("n", "account name");
         return;
       case Constants.REQUEST_LOAN_COMMAND:
-        printInfo("Command to request a loan, annual APR(Currently at "+ Constants.PRINT_RED + Constants.ANNUALAPR +"%" + Constants.RESET_STYLE+ "% ) applied by New Bank");
+        printInfo("Command to request a loan, annual APR(Currently at "+ Constants.PRINT_RED + Constants.ANNUALAPR +"%" + Constants.RESET_STYLE+ ") applied by New Bank");
         printCommandHelpArguments("a", "amount");
         printCommandHelpArguments("d", "days until repayment");
         return;
       case Constants.OFFER_LOAN_COMMAND:
-        printInfo("Command to offer a loan, annual APR(Currently at "+ Constants.PRINT_RED + Constants.ANNUALAPR +"%"+ Constants.RESET_STYLE+  "% ) applied by New Bank\nLoan amount withdrawn from main account upon offer creation");
+        printInfo("Command to offer a loan, annual APR(Currently at "+ Constants.PRINT_RED + Constants.ANNUALAPR +"%"+ Constants.RESET_STYLE+  ") applied by New Bank\nLoan amount withdrawn from main account upon offer creation");
         printCommandHelpArguments("a", "amount");
         printCommandHelpArguments("d", "days until repayment");
         return;
