@@ -1,7 +1,13 @@
 package newbank.server;
 
-public class loanRequest extends preLoan {
+public class loanRequest extends PreLoan {
     String details;
+
+    //used in loading from database
+    public loanRequest(Customer customer, double initialAmount, int days, double repaymentAmount){
+        super(customer, initialAmount, days);
+        this.repaymentAmount = repaymentAmount;
+    }
 
     //double accountThreshold = from constants? single place to check total account threshold and annual APR?
     public loanRequest(Customer customer, double initialAmount, int days) {
@@ -26,18 +32,26 @@ public class loanRequest extends preLoan {
         Loan toAdd = new Loan(this, creditor, id);
         //needs method to add Loan to database of loans
         if(toAdd.loanStatus.equals(status.Open)) {
-            this.changeStatus(status.Loaned);
+//            this.changeStatus(status.Loaned);
+//           try {
+//                MicroFinanceDatabaseInterface.updateRequest(this);
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
             return toAdd;
         } else {
             return null;
         }
-        //needs method to update database of preloans so it becomes loaned
     }
 
     public String makeString(){
         double repayRounded= Math.round(repaymentAmount*100);
         repayRounded = repayRounded/100;
-        String toReturn = loanStatus+ getIDAsString() + " from  " + creator_username+ "   inAmount:" + amount + "     repayAmount:" + repayRounded + "   days:" + String.valueOf(daysToRepayment);
+        String toReturn = "ID: " + getIDAsString() + "  Status:" + loanStatus + ":  from  " + creator_username+ "   inAmount:" + amount + "     repayAmount:" + repayRounded + "   days:" + String.valueOf(daysToRepayment);
         return toReturn;
+    }
+
+    public void retract(){
+        this.changeStatus(status.Retracted);
     }
 }

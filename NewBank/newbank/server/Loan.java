@@ -36,7 +36,7 @@ public class Loan extends Account{
         this.preLoanId = offer.id;
         this.initialDate = LocalDate.now();
         this.repaymentDate = initialDate.plusDays(offer.daysToRepayment);
-        offer.changeStatus(status.Loaned);
+        //offer.changeStatus(status.Loaned);
         this.id = id;
         //delete old offer from database and insert updated one
         //add new loan to database
@@ -61,7 +61,7 @@ public class Loan extends Account{
         //delete old request from database and insert updated one
         //add new loan to database
         if(depositLoanFromRequest(this.creditor, this.debtor)){
-            this.loanStatus=status.Open;
+            this.loanStatus=status.Paying;
         } else {
             this.loanStatus=status.Retracted;
         }
@@ -71,6 +71,7 @@ public class Loan extends Account{
     public void depositLoanFromOffer(Customer creditor, Customer debtor){
         //the money was already taken from the creditor when they created the offer, thus this only deposits
         debtor.addMoney("savings", initialAmount);
+        databaseInterface.updateDatabase(debtor);
     }
 
     public boolean depositLoanFromRequest(Customer creditor, Customer debtor){
@@ -78,6 +79,8 @@ public class Loan extends Account{
         if(creditor.areFundsSufficient("main", initialAmount)){
             creditor.withdrawMoney("main", initialAmount);
             debtor.addMoney("savings", initialAmount);
+            databaseInterface.updateDatabase(creditor);
+            databaseInterface.updateDatabase(debtor);
             return true;
         } else {
             return false;
@@ -88,7 +91,9 @@ public class Loan extends Account{
         if(debtor.areFundsSufficient("main", amount) && amount<=amountDue){
             ifOverdue();
             debtor.withdrawMoney("main", amount);
+            databaseInterface.updateDatabase(debtor);
             creditor.addMoney("main", amount);
+            databaseInterface.updateDatabase(creditor);
             amountDue = amountDue - amount;
             if(amountDue == 0){
                 loanStatus = status.Paid;
@@ -111,7 +116,7 @@ public class Loan extends Account{
     }
 
     public boolean isLoanOverdue() {
-        if(LocalDate.now().isAfter(repaymentDate)){
+        if(LocalDate.now().isAfter(repaymentDate) && this.amountDue>0){
             return true;
         } else {
             return false;

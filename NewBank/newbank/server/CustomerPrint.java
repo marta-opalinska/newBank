@@ -75,8 +75,51 @@ public class CustomerPrint {
       case Constants.ADD_ACCOUNT_COMMAND:
         printInfo("Command for creating new account under the same customer.");
         printCommandHelpArguments("n", "account name");
+        return;
+      case Constants.REQUEST_LOAN_COMMAND:
+        printInfo("Command to request a loan, annual APR(Currently at "+ Constants.PRINT_RED + Constants.ANNUALAPR +"%" + Constants.RESET_STYLE+ "% ) applied by New Bank");
+        printCommandHelpArguments("a", "amount");
+        printCommandHelpArguments("d", "days until repayment");
+        return;
+      case Constants.OFFER_LOAN_COMMAND:
+        printInfo("Command to offer a loan, annual APR(Currently at "+ Constants.PRINT_RED + Constants.ANNUALAPR +"%"+ Constants.RESET_STYLE+  "% ) applied by New Bank\nLoan amount withdrawn from main account upon offer creation");
+        printCommandHelpArguments("a", "amount");
+        printCommandHelpArguments("d", "days until repayment");
+        return;
+      case Constants.GET_OPEN_OFFERS:
+        printInfo("Command to return available open loan offers");
+        printInfo("Optional parameters:");
+        printCommandHelpArguments("x", "(Optional) filter minimum days");
+        printCommandHelpArguments("y", "(Optional) filter maximum days");
+        printCommandHelpArguments("p", "(Optional) filter minimum amount");
+        printCommandHelpArguments("q", "(Optional) filter maximum amount");
+        return;
+      case Constants.GET_OPEN_REQUESTS:
+        printInfo("Command to return available open loan requests");
+        printInfo("Optional parameters:");
+        printCommandHelpArguments("x", "(Optional) filter minimum days");
+        printCommandHelpArguments("y", "(Optional) filter maximum days");
+        printCommandHelpArguments("p", "(Optional) filter minimum amount");
+        printCommandHelpArguments("q", "(Optional) filter maximum amount");
+        return;
+      case Constants.CHOOSE_PRELOAN:
+        printInfo("Command to select an available offer or request and create a loan, amount withdrawn from main account and deposited into savings");
+        printCommandHelpArguments("i", "choose ID of request or offer");
+        return;
+      case Constants.PAY_LOAN:
+        printInfo("Command to pay off whole or part of an existing loan");
+        printCommandHelpArguments("i", "choose ID of loan to repay");
+        return;
+      case Constants.GET_LOANS:
+        printInfo("Command to retrieve active(unpaid) loans, whether you are debtor or creditor");
+        return;
+      case Constants.RETRACT_PRELOAN:
+        printInfo("Retract active offer or loan, upon retracting offer you are debited the amount offered");
+        printCommandHelpArguments("i", "select ID of offer or request to repay");
+        return;
       default:
         printWarning("No help function implemented for this command.");
+        return;
     }
   }
 

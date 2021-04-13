@@ -1,6 +1,6 @@
 package newbank.server;
 import java.lang.Math;
-public abstract class preLoan {
+public abstract class PreLoan {
     //abstract class for loanoffers and loanrequests
     int id;
     status loanStatus;
@@ -12,7 +12,7 @@ public abstract class preLoan {
 
     //annualAPR represents a percent APR, such as 5.5. this is then converted to the actual changes, such as
     //1.055, in the getrepaymentmethod
-    public preLoan(Customer customer, double initialAmount, int days){
+    public PreLoan(Customer customer, double initialAmount, int days){
         //this.loanStatus = status.Open;
         this.creator_username = customer.getName();
         this.creator = customer;

@@ -49,6 +49,7 @@ public final class Constants {
   public static final String CHOOSE_PRELOAN = "matchloan";
   public static final String PAY_LOAN = "payloan";
   public static final String GET_LOANS = "getloans";
+  public static final String RETRACT_PRELOAN = "retract";
 
   //annual APR, in percent, for example 5.5% is 5.5
   public static final double ANNUALAPR = 50;

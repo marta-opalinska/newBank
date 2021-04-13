@@ -15,9 +15,6 @@ public class NewBankClientHandler extends Thread {
   private BufferedReader in;
   private CustomerPrint out;
 
-  //test arraylist
-  private mfInterface mfinterface = new mfInterface();
-
   public NewBankClientHandler(Socket s) throws IOException {
     bank = NewBank.getBank();
     in = new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -68,11 +65,12 @@ public class NewBankClientHandler extends Thread {
       }
       i++;
     }
+    //TODO
       // if the user is authenticated then get requests from the user and process them
       out.printInfo("Log In Successful.");
       out.printRequest("Please type in a command from the list...\n");
       // Changed from "What do you want to do?" to providing a list of options for the user to type into the command line
-      out.printInfo("pay\nshowmyaccounts\nmoveaccounts\naddaccount\nlogout");
+      out.printInfo("Bank Commands:\npay\nshowmyaccounts\nmoveaccounts\naddaccount\nlogout\nMicrofinance Commands:\nrequestloan\nofferloan\ngetrequests\ngetoffers\nmatchloan\ngetloans\nretract");
       // keep getting requests from the client and processing them
       requestsLoop(customer);
       return;
@@ -154,10 +152,12 @@ public class NewBankClientHandler extends Thread {
         case Constants.CHOOSE_PRELOAN:
           return match(customer, Integer.parseInt(request.get("i")));
         case Constants.GET_LOANS:
-          out.printInfo(mfinterface.getLoansAsString(customer));
+          out.printInfo(mfInterface.getLoansAsString(customer));
           return true;
         case Constants.PAY_LOAN:
           return payLoan(customer, Double.parseDouble(request.get("a")), Integer.parseInt(request.get("i")));
+        case Constants.RETRACT_PRELOAN:
+          return retract(customer, Integer.parseInt(request.get("i")));
         default:
           out.printWarning("Command name not found.");
           return false;
@@ -207,6 +207,7 @@ public class NewBankClientHandler extends Thread {
     if (!isDestinationBankCustomer) {
       out.printWarning("The customer is not registered in our bank. Would you like to continue? y/n");
     }
+    out.printWarning("Please Confirm y/n");
     if (confirm()) {
       if (isDestinationBankCustomer) {
         if (!bank.updateCustomerBalance(destination, amount)) {
@@ -223,7 +224,8 @@ public class NewBankClientHandler extends Thread {
   }
 
   private Boolean showMyAccounts(Customer customer) {
-    ArrayList<Account> accounts = customer.getAccounts();
+    Customer temp = databaseInterface.getCustomer(customer.getName());
+    ArrayList<Account> accounts = temp.getAccounts();
     out.printAccounts(accounts);
     return true;
   }
@@ -303,6 +305,7 @@ public class NewBankClientHandler extends Thread {
    */
   private boolean confirm() {
     int attempt = 0;
+    //out.printInfo("Would you like to confirm this? y/n");
     String customerInput;
     while (attempt < Constants.ATTEMPTS) {
       customerInput = safeLineReading();
@@ -327,49 +330,111 @@ public class NewBankClientHandler extends Thread {
    * @param customer    customer that runs the command
    * @param amount      amount to transfer
    * @param days        number of days for loan
-   * @param //optionals  optional parameters
    * @return if the operation was successful
    */
   private boolean addRequest(Customer customer, double amount, int days){
     try {
-      mfinterface.createRequest(customer, amount, days);
+      mfInterface.createRequest(customer, amount, days);
       return true;
     } catch (Exception e){
       return false;
     }
   }
 
+  /**
+   * Function that creates a loan request.
+   *
+   * @param customer    customer that runs the command
+   * @param amount      amount to transfer
+   * @param days        number of days for loan
+   * @return if the operation was successful
+   */
   private boolean addOffer(Customer customer, double amount, int days){
     try {
-      mfinterface.createOffer(customer, amount, days);
+      databaseInterface.updateDatabase(mfInterface.createOffer(customer, amount, days));
       return true;
     } catch (Exception e){
       return false;
     }
   }
 
+  /**
+   * Function that creates a loan request.
+   *
+   * @param customer    customer that runs the command
+   * @param id      id of request or offer to accept
+   * @return if the operation was successful
+   */
   private boolean match(Customer customer, int id){
+    try{
+        Loan toBuild;
+        if(mfInterface.isOffer(id)) {
+          loanOffer temp = MicroFinanceDatabaseInterface.loadOffer(id);
+          toBuild = temp.buildLoan(customer);
+        } else {
+          loanRequest temp = MicroFinanceDatabaseInterface.loadRequest(id);
+          toBuild = temp.buildLoan(customer);
+        }
+      out.printInfo("Confirm Creation of Loan:"+toBuild.getLoanString());
+    } catch(Exception e){
+      return false;
+    }
+    if(confirm()){
     try {
-      preLoan temp = mfinterface.getPreLoan(id);
-      Loan toBuild = temp.buildLoan(customer);
-      if(!Objects.isNull(toBuild)) {
-        mfinterface.getPreLoan(id).changeStatus(status.Loaned);
-        mfinterface.addLoan(temp.buildLoan(customer));
+      Loan toBuild;
+      if(mfInterface.isOffer(id)) {
+        loanOffer temp = MicroFinanceDatabaseInterface.loadOffer(id);
+        toBuild = temp.buildLoan(customer);
+        temp.changeStatus(status.Loaned);
+        System.out.println(toBuild.stringLoan());
+        MicroFinanceDatabaseInterface.updateOffer(temp);
+      } else {
+        loanRequest temp = MicroFinanceDatabaseInterface.loadRequest(id);
+        toBuild = temp.buildLoan(customer);
+        temp.changeStatus(status.Loaned);
+        System.out.println(toBuild.stringLoan());
+        MicroFinanceDatabaseInterface.updateRequest(temp);
+      }
+      if(!Objects.isNull(toBuild)){
+        toBuild.loanStatus = status.Paying;
+        mfInterface.addLoan(toBuild);
         return true;
-      } else { return false; }
+      } else {
+        return false;
+      }
       //have to remove preloan from system
     } catch (Exception e){
+      e.printStackTrace();
       out.printError("Could not create loan");
+      return false;
+    }} else {
       return false;
     }
   }
 
+  /**
+   * Function that creates a loan request.
+   *
+   * @param customer    customer that runs the command
+   * @param amount      amount to transfer
+   * @param id          id of loan
+   * @return if the operation was successful
+   */
   private boolean payLoan(Customer customer, double amount, int id){
-    if(mfinterface.payLoan(amount, id)){
-      return true;
+    if(mfInterface.getLoan(id).debtor.getName().equals(customer.getName())){
+      if(mfInterface.payLoan(amount, id)) {
+        return true;
+      }
     }
     return false;
   }
+
+  /**
+   * Function that filters a hashmap.
+   *
+   * @param request     set of hashmaps that runs the command
+   * @return if the operation was successful
+   */
 
   private HashMap<String, String> getFilter(HashMap<String, String> request){
     HashMap<String, String> filter = new HashMap<>();
@@ -380,58 +445,57 @@ public class NewBankClientHandler extends Thread {
     return filter;
   }
 
+  /**
+   * Function that filters a hashmap.
+   *
+   * @param optionals     optionals(need to be filtered via getfilter)
+   * @return if the operation was successful
+   */
   //x is min days, y is max days, p is min amount, and q is max amount
   private String getOffers(HashMap<String, String> optionals){
+    double filter[] = mfInterface.filter(optionals);
     int days[] = new int[2];
     double amount[] = new double[2];
-    try {
-      if (optionals.get("x") != null) {
-        days[0] = Integer.parseInt(optionals.get("x"));
-      }
-      if (optionals.get("y") != null) {
-        days[1] = Integer.parseInt(optionals.get("y"));
-      }
-      if (optionals.get("p") != null) {
-        amount[0] = Double.parseDouble(optionals.get("p"));
-      }
-      if (optionals.get("q") != null) {
-        amount[1] = Double.parseDouble(optionals.get("q"));
-      }
-    } catch (Exception e){
-      out.printError("Invalid Parameters");
-      return "";
-    }
-    return mfinterface.getOpenOffersAsString(days, amount);
+      days[0] = (int) filter[0];
+      days[1] = (int) filter[1];
+      amount[0] = filter[2];
+      amount[1] = filter[3];
+    return mfInterface.getOpenOffersAsString(days, amount);
   }
 
+  /**
+   * Function that filters a hashmap.
+   *
+   * @param optionals     optionals(need to be filtered via getfilter)
+   * @return if the operation was successful
+   */
+
   private String getRequests(HashMap<String, String> optionals){
+    double filter[] = mfInterface.filter(optionals);
     int days[] = new int[2];
     double amount[] = new double[2];
+    days[0] = (int) filter[0];
+    days[1] = (int) filter[1];
+    amount[0] = filter[2];
+    amount[1] = filter[3];
+    return mfInterface.getOpenRequestsAsString(days, amount);
+  }
+
+  /**
+   * Function that retracts a loan request or loan offer.
+   *
+   * @param customer    customer that runs the command
+   * @param id          id of preloan
+   * @return if the operation was successful
+   */
+
+  private boolean retract(Customer customer, int id){
     try {
-      if (optionals.get("x") != null) {
-        days[0] = Integer.parseInt(optionals.get("x"));
-      } else {
-        days[0] = -1;
-      }
-      if (optionals.get("y") != null) {
-        days[1] = Integer.parseInt(optionals.get("y"));
-      } else {
-        days[1] = -1;
-      }
-      if (optionals.get("p") != null) {
-        amount[0] = Double.parseDouble(optionals.get("p"));
-      } else {
-        amount[0] = -1;
-      }
-      if (optionals.get("q") != null) {
-        amount[1] = Double.parseDouble(optionals.get("q"));
-      } else {
-        amount[1] = -1;
-      }
+      mfInterface.retract(customer, id);
+      return true;
     } catch (Exception e){
-      out.printError("Invalid Parameters");
-      return null;
+      e.printStackTrace();
+      return false;
     }
-    return mfinterface.getOpenRequestsAsString(days, amount);
   }
 }
