@@ -39,14 +39,23 @@ public final class Constants {
   public static final String SHOW_ACCOUNTS_COMMAND = "showmyaccounts";
   public static final String MOVE_ACCOUNTS_COMMAND = "moveaccounts";
   public static final String ADD_ACCOUNT_COMMAND = "addaccount";
-
   //moveaccounts -a 400 -d savings -s main
 
+  //microfinance commands
+  public static final String REQUEST_LOAN_COMMAND = "requestloan";
+  public static final String OFFER_LOAN_COMMAND = "offerloan";
+  public static final String GET_OPEN_REQUESTS = "getrequests";
+  public static final String GET_OPEN_OFFERS = "getoffers";
+  public static final String CHOOSE_PRELOAN = "matchloan";
+  public static final String PAY_LOAN = "payloan";
+  public static final String GET_LOANS = "getloans";
+  public static final String RETRACT_PRELOAN = "retract";
+
   //annual APR, in percent, for example 5.5% is 5.5
-  public static final double ANNUALAPR = 5.5;
+  public static final double ANNUALAPR = 50;
 
   //account threshold, since a loan can't make up more than a certain amount of the total funds a customer has, same rules as above
-  public static final double ACCOUNT_THRESHOLD = 20;
+  public static final double ACCOUNT_THRESHOLD = 100;
   //in case of overdue payment, this is the late fee, and time added to pay
   public static final double LATE_FEE = 20;
   public static final int LATE_DAYS = 7;

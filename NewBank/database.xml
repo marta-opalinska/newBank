@@ -5,10 +5,10 @@
         <password>8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918</password>
         <accounts>main,savings</accounts>
         <main>
-            <balance>100200.0</balance>
+            <balance>89061.0</balance>
         </main>
         <savings>
-            <balance>500.0</balance>
+            <balance>11220.0</balance>
         </savings>
     </account>
     <account>
@@ -20,7 +20,7 @@
             <balance>101000.0</balance>
         </main>
         <savings>
-            <balance>100.0</balance>
+            <balance>1000.0</balance>
         </savings>
         <loan>
             <value>100</value>

@@ -7,9 +7,9 @@ In order to test application it is neccessary to run first **NewBankServer.java*
 ## Available commands
 Commands in our application follows the pattern:
 
-**commandName [-arg] paramenerValue**
+**commandName [-arg] parameterValue**
 
-Our application have following commands available:
+Our application has the following commands available:
 
 * pay 
   * [-h] - printing help
@@ -28,6 +28,32 @@ Our application have following commands available:
 * addaccount
   * [-h] - printing help
   * [-n] - choosing new account name
+* requestloan
+  * [-h] - printing help
+  * [-a] - amount requested as loan
+  * [-d] - days until repayment 
+* offerloan
+  * [-h] - printing help
+  * [-a] - amount offered as loan
+  * [-d] - days until repayment  
+* getoffers | getrequests
+  * [-h] -  printing help
+  * [-x] - (optional) filter minimum days
+  * [-y] - (optional) filter maximum days
+  * [-p] - (optional) filter minimum amount
+  * [-q] - (optional) filter maximum amount  
+* matchloan
+  * [-h] - printing help
+  * [-i] - select ID of offer or request to accept
+* payloan
+  * [-h] - printing help
+  * [-i] - select ID of loan to repay
+  * [-a] - amount to repay  
+* getloans
+  * [-h] - printing help
+* retract
+  * [-h] - printing help
+  * [-i] - select ID of offer or request to repay
 * exit/logout
   
 Server response can be divided into three categories:
